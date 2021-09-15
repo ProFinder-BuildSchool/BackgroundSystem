@@ -22,12 +22,22 @@ namespace Background_ProFinder.Models.DBModel
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUserRole> AspNetUserRoles { get; set; }
+        public virtual DbSet<BackAccount> BackAccounts { get; set; }
+        public virtual DbSet<BackRole> BackRoles { get; set; }
+        public virtual DbSet<BackUserClaim> BackUserClaims { get; set; }
+        public virtual DbSet<BackUserDatum> BackUserData { get; set; }
+        public virtual DbSet<BackUserLogin> BackUserLogins { get; set; }
+        public virtual DbSet<BackUserRole> BackUserRoles { get; set; }
+        public virtual DbSet<BackUserRoleClaim> BackUserRoleClaims { get; set; }
+        public virtual DbSet<BackUserToken> BackUserTokens { get; set; }
+        public virtual DbSet<Banner> Banners { get; set; }
         public virtual DbSet<Case> Cases { get; set; }
         public virtual DbSet<CaseNotification> CaseNotifications { get; set; }
         public virtual DbSet<CaseReference> CaseReferences { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<ClientCart> ClientCarts { get; set; }
         public virtual DbSet<Experience> Experiences { get; set; }
+        public virtual DbSet<FeaturedWork> FeaturedWorks { get; set; }
         public virtual DbSet<HostingDetail> HostingDetails { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<MemberInfo> MemberInfos { get; set; }
@@ -58,7 +68,7 @@ namespace Background_ProFinder.Models.DBModel
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("data source=bs-2021-hsz-summer.database.windows.net;initial catalog=ThirdGroup;user id=bs;password=3U7hzk5f8Bzm;MultipleActiveResultSets=True;App=EntityFramework");
+                optionsBuilder.UseSqlServer("data source=bs-2021-hsz-summer.database.windows.net;Database=ThirdGroup;user id=bs;password=3U7hzk5f8Bzm;");
             }
         }
 
@@ -139,6 +149,141 @@ namespace Background_ProFinder.Models.DBModel
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_AspNetUserRoles_AspNetUsers");
+            });
+
+            modelBuilder.Entity<BackAccount>(entity =>
+            {
+                entity.HasKey(e => e.AdminId);
+
+                entity.ToTable("BackAccount");
+
+                entity.Property(e => e.AdminId).HasColumnName("AdminID");
+
+                entity.Property(e => e.Account).HasMaxLength(50);
+
+                entity.Property(e => e.Email).HasMaxLength(50);
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+
+                entity.Property(e => e.Password).HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<BackRole>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("BackRole");
+
+                entity.Property(e => e.Id)
+                    .IsRequired()
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.Name).HasMaxLength(256);
+
+                entity.Property(e => e.NormalizedName).HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<BackUserClaim>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("BackUserClaim");
+
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasMaxLength(450);
+            });
+
+            modelBuilder.Entity<BackUserDatum>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.Email).HasMaxLength(256);
+
+                entity.Property(e => e.Id)
+                    .IsRequired()
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.LockoutEnd).HasColumnType("sql_variant");
+
+                entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
+
+                entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
+
+                entity.Property(e => e.UserName).HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<BackUserLogin>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("BackUserLogin");
+
+                entity.Property(e => e.LoginProvider)
+                    .IsRequired()
+                    .HasMaxLength(128);
+
+                entity.Property(e => e.ProviderKey)
+                    .IsRequired()
+                    .HasMaxLength(128);
+
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasMaxLength(450);
+            });
+
+            modelBuilder.Entity<BackUserRole>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("BackUserRole");
+
+                entity.Property(e => e.RoleId)
+                    .IsRequired()
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasMaxLength(450);
+            });
+
+            modelBuilder.Entity<BackUserRoleClaim>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("BackUserRoleClaim");
+
+                entity.Property(e => e.RoleId)
+                    .IsRequired()
+                    .HasMaxLength(450);
+            });
+
+            modelBuilder.Entity<BackUserToken>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("BackUserToken");
+
+                entity.Property(e => e.LoginProvider)
+                    .IsRequired()
+                    .HasMaxLength(128);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(128);
+
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasMaxLength(450);
+            });
+
+            modelBuilder.Entity<Banner>(entity =>
+            {
+                entity.ToTable("Banner");
+
+                entity.Property(e => e.BannerId).HasColumnName("BannerID");
+
+                entity.Property(e => e.BannerTitle).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Case>(entity =>
@@ -273,6 +418,22 @@ namespace Background_ProFinder.Models.DBModel
                     .HasForeignKey(d => d.SubCategoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Experience_SubCategory");
+            });
+
+            modelBuilder.Entity<FeaturedWork>(entity =>
+            {
+                entity.HasKey(e => e.FeaturedId);
+
+                entity.ToTable("FeaturedWork");
+
+                entity.Property(e => e.FeaturedId).HasColumnName("FeaturedID");
+
+                entity.Property(e => e.WorkId).HasColumnName("WorkID");
+
+                entity.HasOne(d => d.Work)
+                    .WithMany(p => p.FeaturedWorks)
+                    .HasForeignKey(d => d.WorkId)
+                    .HasConstraintName("FK_FeaturedWork_Works");
             });
 
             modelBuilder.Entity<HostingDetail>(entity =>

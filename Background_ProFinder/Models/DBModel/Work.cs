@@ -9,6 +9,7 @@ namespace Background_ProFinder.Models.DBModel
     {
         public Work()
         {
+            FeaturedWorks = new HashSet<FeaturedWork>();
             WorkPictures = new HashSet<WorkPicture>();
         }
 
@@ -22,9 +23,11 @@ namespace Background_ProFinder.Models.DBModel
         public int SubCategoryId { get; set; }
         public int? WorkAttachmentId { get; set; }
         public int? MemberId { get; set; }
+        public int? Featured { get; set; }
 
         public virtual SubCategory SubCategory { get; set; }
         public virtual WorkAttachment WorkAttachment { get; set; }
+        public virtual ICollection<FeaturedWork> FeaturedWorks { get; set; }
         public virtual ICollection<WorkPicture> WorkPictures { get; set; }
     }
 }
