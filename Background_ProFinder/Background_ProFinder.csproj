@@ -23,6 +23,8 @@
 
   <ItemGroup>
     <Folder Include="Models\DBModel\" />
+    <Folder Include="APIControllers\" />
+    <Folder Include="Models\ViewModel\" />
   </ItemGroup>
 
 </Project>
