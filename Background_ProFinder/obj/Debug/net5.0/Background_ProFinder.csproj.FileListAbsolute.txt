@@ -488,3 +488,4 @@ C:\Users\yoyo4\Desktop\Background_ProFinder\Background_ProFinder\obj\Debug\net5.
 C:\Users\yoyo4\Desktop\Background_ProFinder\Background_ProFinder\obj\Debug\net5.0\ref\Background_ProFinder.dll
 C:\Users\yoyo4\Desktop\Background_ProFinder\Background_ProFinder\obj\Debug\net5.0\Background_ProFinder.pdb
 C:\Users\yoyo4\Desktop\Background_ProFinder\Background_ProFinder\obj\Debug\net5.0\Background_ProFinder.genruntimeconfig.cache
+C:\Users\yoyo4\Desktop\Background_ProFinder\Background_ProFinder\obj\Debug\net5.0\Razor\Views\Home\Homepage.cshtml.g.cs
