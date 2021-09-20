@@ -51,7 +51,7 @@ namespace Background_ProFinder
                     options.LoginPath = new PathString("/Login/Login");
                 });
         }
-
+        ///
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
