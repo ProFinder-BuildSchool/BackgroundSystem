@@ -38,5 +38,12 @@ namespace Background_ProFinder.Controllers
         {
             return View();
         }
+
+
+        public IActionResult Homepage()
+        {
+
+            return View();
+        }
     }
 }
