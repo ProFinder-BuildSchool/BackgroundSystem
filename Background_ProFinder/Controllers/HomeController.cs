@@ -38,5 +38,10 @@ namespace Background_ProFinder.Controllers
         {
             return View();
         }
+
+        public IActionResult OrderManagement()
+        {
+            return View();
+        }
     }
 }

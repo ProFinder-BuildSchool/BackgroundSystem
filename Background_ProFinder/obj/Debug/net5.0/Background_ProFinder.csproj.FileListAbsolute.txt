@@ -323,3 +323,4 @@ C:\Users\User\Desktop\BackgroundSystem_Profinder\Background_ProFinder\obj\Debug\
 C:\Users\User\Desktop\BackgroundSystem_Profinder\Background_ProFinder\obj\Debug\net5.0\Razor\Views\CRUD_Quotations\Details.cshtml.g.cs
 C:\Users\User\Desktop\BackgroundSystem_Profinder\Background_ProFinder\obj\Debug\net5.0\Razor\Views\CRUD_Quotations\Edit.cshtml.g.cs
 C:\Users\User\Desktop\BackgroundSystem_Profinder\Background_ProFinder\obj\Debug\net5.0\Razor\Views\CRUD_Quotations\Index.cshtml.g.cs
+C:\Users\User\Desktop\BackgroundSystem_Profinder\Background_ProFinder\obj\Debug\net5.0\Razor\Views\Home\OrderManagement.cshtml.g.cs
