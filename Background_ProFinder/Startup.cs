@@ -13,6 +13,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Background_ProFinder.Service;
+using Microsoft.AspNetCore.Http;
 
 namespace Background_ProFinder
 {
@@ -39,6 +42,14 @@ namespace Background_ProFinder
             services.AddControllersWithViews();
 
             services.AddDbContext<ThirdGroupContext>();
+            services.AddScoped<LoginService>();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    //options.AccessDeniedPath = "Login/AccessDeny";
+                    options.LoginPath = new PathString("/Login/Login");
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,14 +71,14 @@ namespace Background_ProFinder
 
             app.UseRouting();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            app.UseAuthentication();//ÅçÃÒ
+            app.UseAuthorization();//±ÂÅv
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Login}/{action=Login}/{id?}");
                 endpoints.MapRazorPages();
             });
         }
