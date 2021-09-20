@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\yoyo4\\Desktop\\Background_ProFinder\\Background_ProFinder\\Background_ProFinder.csproj": {}
+    "C:\\Users\\yoyo4\\Desktop\\ProFinderBackGround\\Background_ProFinder\\Background_ProFinder.csproj": {}
   },
   "projects": {
-    "C:\\Users\\yoyo4\\Desktop\\Background_ProFinder\\Background_ProFinder\\Background_ProFinder.csproj": {
+    "C:\\Users\\yoyo4\\Desktop\\ProFinderBackGround\\Background_ProFinder\\Background_ProFinder.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\yoyo4\\Desktop\\Background_ProFinder\\Background_ProFinder\\Background_ProFinder.csproj",
+        "projectUniqueName": "C:\\Users\\yoyo4\\Desktop\\ProFinderBackGround\\Background_ProFinder\\Background_ProFinder.csproj",
         "projectName": "Background_ProFinder",
-        "projectPath": "C:\\Users\\yoyo4\\Desktop\\Background_ProFinder\\Background_ProFinder\\Background_ProFinder.csproj",
+        "projectPath": "C:\\Users\\yoyo4\\Desktop\\ProFinderBackGround\\Background_ProFinder\\Background_ProFinder.csproj",
         "packagesPath": "C:\\Users\\yoyo4\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yoyo4\\Desktop\\Background_ProFinder\\Background_ProFinder\\obj\\",
+        "outputPath": "C:\\Users\\yoyo4\\Desktop\\ProFinderBackGround\\Background_ProFinder\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
