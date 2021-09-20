@@ -13,10 +13,10 @@
     <!-- Order Table -->
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-row justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary table-title">訂單資訊</h6>
+            <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" align="right"></b-pagination>
             <div class="d-flex flex-row align-content-center">
                 <input type="text" placeholder="搜尋關鍵字" class="form-control mr-2" v-model="keyword" />
-                <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" align="right"></b-pagination>
+                <b-form-select v-model="selected" :options="options"></b-form-select>
             </div>
             
         </div>
@@ -201,16 +201,25 @@
                         { key: "DealedDate", label: "成交日期", sortable: true },
                         { key: "OrderStatusString", label: "訂單狀態", sortable: true }
                     ],
+                    options: [
+                        { value: "-1", text: "--訂單狀態--" },
+                        { value: "0", text: "待付款" },
+                        { value: "1", text: "製作中" },
+                        { value: "2", text: "待驗收" },
+                        { value: "3", text: "已提出撥款需求" },
+                        { value: "4", text: "撥款完成" },
+                    ],
                     items: [],
                     allitems: [],
                     rows: 0,
-                    perPage: 10,
+                    perPage: 15,
                     currentPage: 1,
                     keyword: "",
                     clientInfo: {},
                     proposerInfo: {},
                     orderInfo: {},
-                    isAbleToGiveMoney: true
+                    isAbleToGiveMoney: true,
+                    selected:"-1"
                 }
             },
             created: function () {
@@ -236,6 +245,14 @@
                         this.items = this.allitems;
                     } else {
                         this.items = this.allitems.filter(x => JSON.stringify(x).includes(this.keyword));
+                    }
+                },
+                selected: function () {
+                    let value = Number(this.selected);
+                    if (value != -1) {
+                        this.items = this.allitems.filter(x => x.OrderStatus == value);
+                    } else {
+                        this.items = this.allitems;
                     }
                 }
             },
