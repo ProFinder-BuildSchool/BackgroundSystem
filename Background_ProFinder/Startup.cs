@@ -1,6 +1,9 @@
 using Background_ProFinder.Data;
 using Background_ProFinder.Models.DBModel;
 using Background_ProFinder.Repositories;
+using Background_ProFinder.Repositories.Interfaces;
+using Background_ProFinder.Services;
+using Background_ProFinder.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -39,9 +42,12 @@ namespace Background_ProFinder
             services.AddDbContext<ThirdGroupContext>();
 
             //ª`¤JRepositories
-            services.AddScoped<IGeneralRepository<Order>, OrderRepository>();
-            services.AddScoped<IGeneralRepository<Quotation>, QuotationRepository>();
-            services.AddScoped<IGeneralRepository<MemberInfo>, MemberRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IQuotationRepository, QuotationRepository>();
+            services.AddTransient<IMemberRepository, MemberRepository>();
+
+            //ª`¤JServices
+            services.AddTransient<IOrderService, OrderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
