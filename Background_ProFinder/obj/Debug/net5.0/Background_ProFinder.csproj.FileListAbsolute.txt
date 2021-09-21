@@ -661,3 +661,4 @@ C:\Users\yoyo4\Desktop\ProFinderBackGround\Background_ProFinder\obj\Debug\net5.0
 C:\Users\User\Desktop\BackgroundSystem_Profinder\Background_ProFinder\obj\Debug\net5.0\Razor\Views\Home\Homepage.cshtml.g.cs
 C:\Users\User\Desktop\BackgroundSystem_Profinder\Background_ProFinder\obj\Debug\net5.0\Razor\Views\Login\Login.cshtml.g.cs
 C:\Users\User\Desktop\BackgroundSystem_Profinder\Background_ProFinder\obj\Debug\net5.0\Razor\Views\Shared\_LoginLayout.cshtml.g.cs
+C:\Users\User\Desktop\BackgroundSystem_Profinder\Background_ProFinder\obj\Debug\net5.0\Razor\Views\Home\OrderManagement.cshtml.g.cs
