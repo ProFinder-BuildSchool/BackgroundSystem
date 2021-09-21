@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4+GIMQ17AdB1SKquP92vjsdkRc6hac1Ci8jQcdRVmMeLgi+b4iXxeydIBpLjXAPSO0CBQrCS7MDu489Hh7zXQQ==",
+  "dgSpecHash": "PveGwPrYSSGorIMzPZmFxPZUf12/+yMZab11ezxWEch05ILg3csSGZFyZZzk69zKbo6CWdBWVBLM4NTo25+ggA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ac556\\Source\\Repos\\BackgroundSystem\\Background_ProFinder\\Background_ProFinder.csproj",
+  "projectFilePath": "C:\\Users\\ac556\\source\\repos\\BackgroundSystem\\Background_ProFinder\\Background_ProFinder.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ac556\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\ac556\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.3\\microsoft.aspnetcore.cryptography.internal.5.0.3.nupkg.sha512",
