@@ -1,5 +1,6 @@
 using Background_ProFinder.Data;
 using Background_ProFinder.Models.DBModel;
+using Background_ProFinder.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,11 +36,10 @@ namespace Background_ProFinder
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-            
-
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+            services.AddDbContext<ThirdGroupContext>();
 
             services.AddDbContext<ThirdGroupContext>();
             services.AddScoped<LoginService>();
@@ -50,6 +50,10 @@ namespace Background_ProFinder
                     //options.AccessDeniedPath = "Login/AccessDeny";
                     options.LoginPath = new PathString("/Login/Login");
                 });
+            //ª`¤JRepositories
+            services.AddScoped<IGeneralRepository<Order>, OrderRepository>();
+            services.AddScoped<IGeneralRepository<Quotation>, QuotationRepository>();
+            services.AddScoped<IGeneralRepository<MemberInfo>, MemberRepository>();
         }
         ///
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
