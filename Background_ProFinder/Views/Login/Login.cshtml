@@ -1,0 +1,58 @@
+﻿@model Background_ProFinder.Models.DBModel.BackAccount
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+
+
+<div class="mt-5">
+    <h1 class="text-center">Login</h1>
+
+    <h4 class="text-center">PRO FINDER BackAccount</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4 formdiv mx-auto py-2">
+            <form asp-action="Login">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group d-flex flex-column align-content-center justify-content-center">
+                    <label asp-for="Account" class="control-label"></label>
+                    <input asp-for="Account" class="form-control" />
+                    <span asp-validation-for="Account" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group">
+                    <input type="submit" value="登入" class="btn btn-primary" />
+                    @if (ViewData["ErrorMessage"] != null)
+                    {
+                        <h3 class="alert alert-danger">@ViewData["ErrorMessage"]</h3>
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section TopCSS{
+<style>
+    form {
+        width:300px;
+        
+    }
+    .formdiv {
+        border: 1px solid #d5c9c9;
+    }
+</style>
+
+    }
+
+
+
