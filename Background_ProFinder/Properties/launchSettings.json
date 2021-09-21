@@ -18,7 +18,6 @@
     "Background_ProFinder": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "Home/OrderManagement",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
