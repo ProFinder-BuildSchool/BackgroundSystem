@@ -13,7 +13,7 @@ namespace Background_ProFinder.Models.ViewModel
         public string Memo { get; set; }
         public string studio { get; set; }
         public int MemberID { get; set; }
-
+        public int Featured { get; set; }
 
     }
 }

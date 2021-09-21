@@ -9,7 +9,8 @@ using Background_ProFinder.Models.ViewModel;
 
 namespace Background_ProFinder.APIControllers
 {
-    [Route("api/[controller]")]
+   
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class HomepageAPIController : ControllerBase
     {
@@ -21,7 +22,7 @@ namespace Background_ProFinder.APIControllers
             _ctx = ctx;
         }
 
-        [HttpPut("api/[controller]/AddBannerData", Name = "AddBannerData")]
+        [HttpPut]
         public APIResult AddBannerData(BannerViewModel data)
         {
             try
@@ -40,7 +41,95 @@ namespace Background_ProFinder.APIControllers
         }
 
 
-        [HttpGet("api/[controller]/GetBannerData", Name = "GetBannerData")]
+
+
+        [HttpPut]
+        public APIResult addFeatureWorkMomo(WorkViewModel FeatureWorkList)
+        {
+            try
+            {
+                var temp = _ctx.Works.FirstOrDefault(x => x.WorkId == FeatureWorkList.WorkID);
+
+                if (temp.Featured == 0)
+                {
+                    FeaturedWork data = new FeaturedWork();
+                    data.Memo = FeatureWorkList.Memo;
+                    data.WorkId = FeatureWorkList.WorkID;
+
+                    temp.Featured = 1;
+                    _ctx.FeaturedWorks.Add(data);
+
+                }
+                else
+                {
+                    temp.Featured = 0;
+                    //FeaturedWork data = new FeaturedWork();
+                    //data.WorkId = FeatureWorkList.WorkID;
+                    //_ctx.FeaturedWorks.Remove(data);
+                }
+
+                _ctx.SaveChanges();
+
+
+                return new APIResult(APIStatus.Success, string.Empty, "儲存成功");
+            }
+            catch (Exception ex)
+            {
+                return new APIResult(APIStatus.Fail, ex.Message, "儲存失敗");
+            }
+        }
+
+
+
+
+
+
+
+
+        [HttpPut]
+        public APIResult SetFeatureWorkList(WorkViewModel FeatureWorkList)
+        {
+            try
+            {
+                var temp = _ctx.Works.FirstOrDefault(x => x.WorkId == FeatureWorkList.WorkID);
+
+                if (temp.Featured == 0)
+                {
+                    FeaturedWork data = new FeaturedWork();
+                    data.Memo = FeatureWorkList.Memo;
+                    data.WorkId = FeatureWorkList.WorkID;
+
+                    temp.Featured = 1;
+                    _ctx.FeaturedWorks.Add(data);
+
+                }
+                else
+                {
+                    temp.Featured = 0;
+                    //FeaturedWork data = new FeaturedWork();
+                    //data.WorkId = FeatureWorkList.WorkID;
+                    //_ctx.FeaturedWorks.Remove(data);
+                }
+
+                _ctx.SaveChanges();
+
+
+                return new APIResult(APIStatus.Success, string.Empty, "儲存成功");
+            }
+            catch (Exception ex)
+            {
+                return new APIResult(APIStatus.Fail, ex.Message, "儲存失敗");
+            }
+        }
+
+
+
+
+
+
+
+
+        [HttpGet]
         public APIResult GetBannerData()
         {
             try
@@ -51,8 +140,6 @@ namespace Background_ProFinder.APIControllers
                     BannerImgUrl = x.BannerImgUrl
 
                 }).ToList();
-
-
                 return new APIResult(APIStatus.Success, string.Empty, result);
             }
             catch (Exception ex)
@@ -62,7 +149,7 @@ namespace Background_ProFinder.APIControllers
         }
 
 
-        [HttpGet("{apiname}", Name = "GetWorkList")]
+        [HttpGet]
         public APIResult GetWorkList()
         {
             try
@@ -70,14 +157,16 @@ namespace Background_ProFinder.APIControllers
                 var result = (from W in _ctx.Works
                               join S in _ctx.SubCategories on W.SubCategoryId equals S.SubCategoryId
                               join workpic in _ctx.WorkPictures on W.WorkId equals workpic.WorkId
-                              
+                             
                               select new
                               {
                                   WorkID = W.WorkId,
                                   Picture = workpic.WorkPicture1,
                                   SubCategoryName = S.SubCategoryName,
                                   studio = W.Client,
-                                  MemberID = W.MemberId
+                                  MemberID = W.MemberId,
+                                  Featured = W.Featured
+                                
                               }).ToList()
                               .GroupBy(x =>x.WorkID)
                               .Select(x=> new WorkViewModel
@@ -86,13 +175,9 @@ namespace Background_ProFinder.APIControllers
                                   WorkPicture = x.Select(p => p.Picture).ToList(),
                                   SubCategoryName = x.First().SubCategoryName,
                                   studio = x.First().studio,
-                                  MemberID = (int)x.First().MemberID
+                                  MemberID = (int)x.First().MemberID,
+                                  Featured = (int)x.First().Featured
                               }).Where(x=>x.WorkPicture.Count()>=3).OrderBy(x => x.WorkID).ToList();
-
-
-
-
-
 
 
                 return new APIResult(APIStatus.Success, string.Empty, result);

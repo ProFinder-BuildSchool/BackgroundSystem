@@ -7,30 +7,30 @@
 
 
     <div class="fileArea">
-            <p class="border-bottom">廣告1</p>
-            <img src="https://icons-for-free.com/iconfiles/png/512/add+photo+plus+upload+icon-1320184050039319890.png" class="imgtest" alt="Alternate Text" />
-            <input type="file" class="file-upload ">
-        </div>
+        <p class="border-bottom">廣告1</p>
+        <img src="https://icons-for-free.com/iconfiles/png/512/add+photo+plus+upload+icon-1320184050039319890.png" class="imgtest" alt="Alternate Text" />
+        <input type="file" class="file-upload ">
+    </div>
 
-        <div class="fileArea">
-            <p class="border-bottom">廣告2</p>
-            <img src="https://icons-for-free.com/iconfiles/png/512/add+photo+plus+upload+icon-1320184050039319890.png" class="imgtest" alt="Alternate Text" />
-            <input type="file" class="file-upload">
+    <div class="fileArea">
+        <p class="border-bottom">廣告2</p>
+        <img src="https://icons-for-free.com/iconfiles/png/512/add+photo+plus+upload+icon-1320184050039319890.png" class="imgtest" alt="Alternate Text" />
+        <input type="file" class="file-upload">
 
-        </div>
-
-
-        <div class="fileArea">
-            <p class="border-bottom">廣告3</p>
-            <img src="https://icons-for-free.com/iconfiles/png/512/add+photo+plus+upload+icon-1320184050039319890.png" class="imgtest" alt="Alternate Text" />
-            <input type="file" class="file-upload">
-
-        </div>
+    </div>
 
 
-    <div id="app">
+    <div class="fileArea">
+        <p class="border-bottom">廣告3</p>
+        <img src="https://icons-for-free.com/iconfiles/png/512/add+photo+plus+upload+icon-1320184050039319890.png" class="imgtest" alt="Alternate Text" />
+        <input type="file" class="file-upload">
+
+    </div>
+
+
+    <div id="app" class="mt-3">
         <h3 class="border-bottom">設定精選作品</h3>
-        <table id="myTable" class="cell-border compact stripe" style="width:100%">
+        <table id="myTable" class="cell-border  compact  stripe" style="width:100%">
             <thead>
                 <tr>
                     <th scope="col">選擇精選</th>
@@ -42,24 +42,27 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in WorkList">
+                <tr v-for="(item,index) in WorkList">
                     <td>
-                        <input class="checkbox" type="checkbox" />
+                        <input class="checkbox" v-if="item.featured==0" type="checkbox" @@change="setFeatureWork(index)" />
+                        <input class="checkbox" v-else-if="item.featured==1" checked type="checkbox" @@change="setFeatureWork(index)" />
                     </td>
                     <td>
                         <p>{{ item.workID }}</p>
                     </td>
                     <td>
-                        
-                        
-                            <img class="workPic" :src="item.workPicture[0]" alt="" />
-                        
+
+
+                        <img class="workPic" :src="item.workPicture[0]" alt="" />
+
                     </td>
                     <td>
                         {{ item.subCategoryName }}
                     </td>
                     <td>
-                        <input type="text" name="" value="" />
+                        <label for="memo">備註:<br />{{item.memo}}</label>
+                        <input type="text" v-if="item.featured==0" disabled id="memo" value="" v-model="item.memo" />
+                        <input type="text" v-if="item.featured==1"  id="memo" value="" v-model="item.memo"  @@change="addFeatureWorkMomo(index)"/>
                     </td>
                     <td>
                         <span class="count">{{ item.studio }}</span>
@@ -67,16 +70,20 @@
                 </tr>
             </tbody>
         </table>
+
     </div>
+
+
 
 
 </div>
 @section TopCSS{
     <style>
-        .workPic{
-            height:100px;
-            width:100px;
+        .workPic {
+            height: 100px;
+            width: 100px;
         }
+
         .file-upload {
             position: absolute;
             top: 0;
@@ -110,104 +117,158 @@
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-toastr/dist/vue-toastr.umd.min.js"></script>
     <script>
+        
 
 
         let app = new Vue({
             el: '#app',
             data: {
                 WorkList: '',
+                FeatureWorkList: ''
             },
             methods: {
                 GetworkList() {
                     axios.get('/api/HomepageAPI/GetWorkList').then(res => {
                         console.log(res.data)
+                        
                         this.WorkList = res.data.result
+                        this.comfirmFeatureWorks() 
+                    })
+                },
+                addFeatureWorkMomo(index) {
+                    //axios.put('/api/HomepageAPI/addFeatureWorkMomo',
+                    //    {
+                    //        WorkID: this.WorkList[index].workID,
+                    //        Memo: this.WorkList[index].memo,
+                    //        Featured: this.WorkList[index].featured
+                    //    })
+                },
+                setFeatureWork(index) {
+
+                    axios.put('/api/HomepageAPI/SetFeatureWorkList',
+                        {
+                            WorkID: this.WorkList[index].workID,
+                            Memo: this.WorkList[index].memo,
+                            Featured: this.WorkList[index].featured
+                        }
+                    ).then(res =>
+                    {
+                        this.GetworkList();
+                        this.comfirmFeatureWorks() 
 
                     })
+                },
+
+                comfirmFeatureWorks() {
+                    this.FeatureWorkList = [];
+                    this.FeatureWorkList = this.WorkList.filter(x => x.featured == 1)
+                    if (this.FeatureWorkList.length < 3) {
+                        document.querySelectorAll('.checkbox').forEach(function (item) {
+                            item.disabled = false;
+                        })
+                    }
+                    if (this.FeatureWorkList.length == 3) {
+                        console.log(this.FeatureWorkList.length)
+                        this.$toastr.Add({
+                            name: "myInfo",
+                            title: "已勾選3筆資料",
+                            msg: "精選動態最多只能設定3筆!!",
+                            clickClose: false, //Disable click to close 
+                            timeout: 1500,
+                            position: "toast-top-center",
+                            type: "warning", //error, warning, success, info
+                            preventDuplicates: true,
+                            progressbar: false
+                        });
+                        document.querySelectorAll('.checkbox').forEach(function (item) {
+                            if (item.checked) {
+
+                            } else {
+                                item.disabled = true;
+                            }
+
+                        })
+                    }
                 }
             },
             created() {
                 this.GetworkList();
-                $('#myTable').DataTable({
-                    "info": false,
-                    "bLengthChange": false,
-                    "pageLength": 5
-                })
             }
 
         })
+        
 
-           
+       
+
 
 
     </script>
     <script>
 
-            var cloudinary_url = 'https://api.cloudinary.com/v1_1/detbgirwx/upload'
-            var cloudinary_upload_preset = 'jsxr0l9e';
+        var cloudinary_url = 'https://api.cloudinary.com/v1_1/detbgirwx/upload'
+        var cloudinary_upload_preset = 'jsxr0l9e';
 
 
-            let imgtest = document.querySelectorAll('.imgtest');
-            let fileupload = document.querySelectorAll('.file-upload');
+        let imgtest = document.querySelectorAll('.imgtest');
+        let fileupload = document.querySelectorAll('.file-upload');
+
+        $(document).ready(function () {
+            GetBannerData();
+            $('#myTable').DataTable({
+         "info": false, "bLengthChange": false, "pageLength": 5
+       })
+        })
+        
+       
+        fileupload.forEach(function (item, index) {
+            item.addEventListener('change', function (event) {
+
+                let file = event.target.files[0];
+                let imgtestitem = imgtest[index]
+                let formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', cloudinary_upload_preset);
 
 
-
-
-            fileupload.forEach(function (item, index) {
-                item.addEventListener('change', function (event) {
-
-                    let file = event.target.files[0];
-                    let imgtestitem = imgtest[index]
-                    let formData = new FormData();
-                    formData.append('file', file);
-                    formData.append('upload_preset', cloudinary_upload_preset);
-
-
-                    axios({
-                        url: cloudinary_url,
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        data: formData
-                    }).then(function (res) {
+                axios({
+                    url: cloudinary_url,
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    data: formData
+                }).then(function (res) {
+                    console.log(res);
+                    let data = {
+                        BannerId: index + 1,
+                        BannerTitle: '測試',
+                        BannerImgUrl: res.data.secure_url
+                    }
+                    axios.put('/api/HomepageAPI/AddBannerData', data).then(res => {
                         console.log(res);
-                        let data = {
-                            BannerId: index + 1,
-                            BannerTitle: '測試',
-                            BannerImgUrl: res.data.secure_url
-                        }
-                        axios.put('/api/HomepageAPI/AddBannerData', data).then(res => {
-                            console.log(res);
 
-                        })
-
-                        imgtestitem.src = res.data.secure_url
-                    }).catch(function (err) {
-                        console.log(err);
                     })
+
+                    imgtestitem.src = res.data.secure_url
+                }).catch(function (err) {
+                    console.log(err);
                 })
             })
+        })
 
 
-            function GetBannerData() {
-                axios.get('/api/HomepageAPI/GetBannerData').then(res => {
-                    let BannerData = res.data.result
-                    console.log(BannerData)
-                    imgtest.forEach(function (item, index) {
-                        item.src = BannerData[index].bannerImgUrl
-                    })
+        function GetBannerData() {
+            axios.get('/api/HomepageAPI/GetBannerData').then(res => {
+                let BannerData = res.data.result
+                console.log(BannerData)
+                imgtest.forEach(function (item, index) {
+                    item.src = BannerData[index].bannerImgUrl
                 })
-            }
-
-
-
-
-
-            window.onload = function () {
-                GetBannerData();
-            }
+            })
+        }
 
 
 
@@ -218,6 +279,9 @@
 
 
 
-        </script>
+
+
+
+    </script>
 }
 
