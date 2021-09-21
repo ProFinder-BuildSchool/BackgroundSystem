@@ -54,6 +54,9 @@ namespace Background_ProFinder
             services.AddScoped<IGeneralRepository<Order>, OrderRepository>();
             services.AddScoped<IGeneralRepository<Quotation>, QuotationRepository>();
             services.AddScoped<IGeneralRepository<MemberInfo>, MemberRepository>();
+
+            services.AddTransient<IGeneralRepository<Order>, OrderRepository>();
+            services.AddTransient<LoginService>();
         }
         ///
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
