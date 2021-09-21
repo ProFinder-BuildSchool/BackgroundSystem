@@ -496,3 +496,5 @@ C:\Users\User\Desktop\BackgroundSystem_Profinder\Background_ProFinder\obj\Debug\
 C:\Users\User\Desktop\BackgroundSystem_Profinder\Background_ProFinder\obj\Debug\net5.0\Razor\Views\Shared\_LoginLayout.cshtml.g.cs
 C:\Users\User\Desktop\BackgroundSystem_Profinder\Background_ProFinder\obj\Debug\net5.0\Razor\Views\Home\Homepage.cshtml.g.cs
 C:\Users\User\Desktop\BackgroundSystem_Profinder\Background_ProFinder\obj\Debug\net5.0\Razor\Views\Home\OrderManagement.cshtml.g.cs
+C:\Users\ac556\source\repos\BackgroundSystem\Background_ProFinder\obj\Debug\net5.0\Razor\Views\Home\Homepage.cshtml.g.cs
+C:\Users\ac556\source\repos\BackgroundSystem\Background_ProFinder\obj\Debug\net5.0\Razor\Views\Home\OrderManagement.cshtml.g.cs
