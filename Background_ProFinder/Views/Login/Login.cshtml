@@ -1,4 +1,4 @@
-﻿@model Background_ProFinder.Models.DBModel.BackAccount
+﻿@model Background_ProFinder.Models.ViewModel.LoginViewModel
 
 @{
     ViewData["Title"] = "Login";
@@ -17,25 +17,25 @@
             <form asp-action="Login">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                <div class="form-group d-flex flex-column align-content-center justify-content-center">
-                    <label asp-for="Account" class="control-label"></label>
-                    <input asp-for="Account" class="form-control" />
-                    <span asp-validation-for="Account" class="text-danger"></span>
+                <div class="form-group">
+                    <label asp-for="AccountName" class="control-label"></label>
+                    <input asp-for="AccountName" class="form-control" id="userAccount"/>
+                    <span asp-validation-for="AccountName" class="text-danger accountspan"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="Password" class="control-label"></label>
-                    <input asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <input asp-for="Password" class="form-control" type="password" id="userePassword"/>
+                    <span asp-validation-for="Password" class="text-danger Passwordspan"></span>
                 </div>
 
+                @if (ViewData["ErrorMessage"] != null)
+                {
+                    <span class="text-danger font-weight-bold">@ViewData["ErrorMessage"]</span>
+                }
 
-                <div class="form-group">
-                    <input type="submit" value="登入" class="btn btn-primary" />
-                    @if (ViewData["ErrorMessage"] != null)
-                    {
-                        <h3 class="alert alert-danger">@ViewData["ErrorMessage"]</h3>
-                    }
+                <div class="form-group d-flex justify-content-center mt-2">
+                    <input type="submit" value="登入" class="btn btn-primary w-50 mx-auto" />
                 </div>
             </form>
         </div>
@@ -44,15 +44,73 @@
 @section TopCSS{
 <style>
     form {
-        width:300px;
+        width:80%;
+        margin:auto;
         
     }
     .formdiv {
         border: 1px solid #d5c9c9;
     }
 </style>
+ }
 
+@section endJS{ 
+<script>
+
+    function AccountValidation() {
+        let AccountReg = /^[a-zA-Z]\w*$/;
+        let userAccountInput = document.getElementById("userAccount").value;
+        let accountspan = document.querySelector('.accountspan');
+
+        if (userAccountInput == '') {
+            accountspan.innerText = '帳號欄位不得留空';
+            return false;
+        }
+        if (!AccountReg.test(userAccountInput)) {
+            accountspan.innerText = '帳號欄位格式錯誤(僅可填寫英文及數字，第一個字不為數字)'
+            return false;
+
+        } else {
+            accountspan.innerText = ''
+            return true;
+        }
     }
+
+    function PasswordValidation() {
+        let PasswordReg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        let PasswordInput = document.getElementById("userePassword").value;
+        let PasswordSpan = document.querySelector('.Passwordspan');
+
+        if (PasswordInput == '') {
+            PasswordSpan.innerText = '密碼欄位不得留空';
+            return false;
+        }
+        if (!PasswordReg.test(PasswordInput)) {
+            PasswordSpan.innerText = '密碼欄位格式錯誤(密碼需包含至少各1個英文大小寫及數字，並大於等於8個字符，不包含特殊字符)'
+            return false;
+
+        } else {
+            PasswordSpan.innerText = ''
+            return true;
+        }
+    }
+
+    function validateAll() {
+        let account = AccountValidation();
+        let password = PasswordValidation();
+        console.log(account)
+        console.log(password)
+        if (account && password) {
+            console.log('true')
+            return true;
+        }
+        else {
+            console.log('false')
+            return false;
+        }
+    }
+</script>
+}
 
 
 
