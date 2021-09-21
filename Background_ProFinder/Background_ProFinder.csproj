@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="APIControllers\" />
     <Folder Include="Models\DBModel\" />
   </ItemGroup>
 

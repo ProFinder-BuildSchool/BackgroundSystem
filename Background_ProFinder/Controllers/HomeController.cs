@@ -49,6 +49,10 @@ namespace Background_ProFinder.Controllers
             return View();
         }
 
-        
+        public IActionResult AdminiAccountManagement()
+        {
+            return View();
+        }
+
     }
 }

@@ -47,7 +47,7 @@ namespace Background_ProFinder.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public ActionResult Login(BackAccount LoginData)
+        public ActionResult Login(LoginViewModel LoginData)
         {
             if (ModelState.IsValid)
             {
