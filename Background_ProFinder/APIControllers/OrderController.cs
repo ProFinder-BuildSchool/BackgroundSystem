@@ -20,11 +20,13 @@ namespace Background_ProFinder.APIControllers
         private readonly IGeneralRepository<Order> _orderRepo;
         private readonly IGeneralRepository<Quotation> _quotationRepo;
         private readonly IGeneralRepository<MemberInfo> _memberInfoRepo;
-        public OrderController(IGeneralRepository<Order> orderRepo, IGeneralRepository<Quotation> quotationRepo, IGeneralRepository<MemberInfo> memberInfo)
+        private readonly ThirdGroupContext _context;
+        public OrderController(IGeneralRepository<Order> orderRepo, IGeneralRepository<Quotation> quotationRepo, IGeneralRepository<MemberInfo> memberInfo, ThirdGroupContext context)
         {
             _orderRepo = orderRepo;
             _quotationRepo = quotationRepo;
             _memberInfoRepo = memberInfo;
+            _context = context;
         }
         [HttpGet]
         public APIResult GetAllOrders()
@@ -112,27 +114,35 @@ namespace Background_ProFinder.APIControllers
         [HttpPut("{id}")]
         public APIResult GiveMoney(int id)
         {
-            bool result = false;
-            try
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                var order = _orderRepo.GetAll().FirstOrDefault(x => x.OrderId == id);
-                var proposer = _memberInfoRepo.GetAll().FirstOrDefault(x => x.MemberId == order.ProposerId);
-                
-                //OrderStatus改成【4撥款完成】
-                order.OrderStatus = 4;
-                _orderRepo.Update(order);
-                
-                //撥款至Proposer Balance
-                var total = (int)order.Price * (int)order.Count;
-                var balance = proposer.Balance != null ?(int)proposer.Balance : 0;
-                proposer.Balance = balance + total;
-                _memberInfoRepo.Update(proposer);
-                result = true;
-                return new APIResult(APIStatus.Fail, "", result);
-            }
-            catch(Exception ex)
-            {
-                return new APIResult(APIStatus.Fail, ex.Message, result);
+                bool result = false;
+                try
+                {
+                    var order = _orderRepo.GetAll().FirstOrDefault(x => x.OrderId == id);
+                    var proposer = _memberInfoRepo.GetAll().FirstOrDefault(x => x.MemberId == order.ProposerId);
+
+                    //OrderStatus改成【4撥款完成】
+                    order.OrderStatus = 4;
+                    _orderRepo.Update(order);
+
+                    //撥款至Proposer Balance
+                    var total = (int)order.Price * (int)order.Count;
+                    var balance = proposer.Balance != null ? (int)proposer.Balance : 0;
+                    proposer.Balance = balance + total;
+                    _memberInfoRepo.Update(proposer);
+
+                    //交易成功
+                    transaction.Commit();
+                    result = true;
+                    return new APIResult(APIStatus.Fail, "", result);
+                }
+                catch (Exception ex)
+                {
+                    //交易失敗
+                    transaction.Rollback();
+                    return new APIResult(APIStatus.Fail, ex.Message, result);
+                }
             }
         }
     }

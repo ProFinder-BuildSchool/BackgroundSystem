@@ -137,12 +137,8 @@
                 </div>
                 <div class="modal-body">
                     <p>訂單編號：{{orderInfo.OrderID}}</p>
-                    <p>案主姓名：{{orderInfo.ClientName}}</p>
-                    <p>接案者姓名：{{orderInfo.StudioName}}</p>
-                    <p>單價：{{orderInfo.PriceString}}</p>
-                    <p>數量：{{orderInfo.Count}}</p>
-                    <p class="text-danger">撥款金額：{{orderInfo.TotalString}}</p>
-                    <p>接案者帳戶資訊：[銀行行號]{{orderInfo.BankCode}}[帳號]{{orderInfo.BankAccount}}</p>
+                    <p>確定撥款<span class="text-danger">{{orderInfo.TotalString}}元</span>至<span class="text-primary">{{orderInfo.StudioName}}</span>的帳戶</p>
+                    @*<p>帳戶資訊：[銀行行號]{{orderInfo.BankCode}}[帳號]{{orderInfo.BankAccount}}</p>*@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" @@click="giveMoney(orderInfo.OrderID)">確認撥款</button>
