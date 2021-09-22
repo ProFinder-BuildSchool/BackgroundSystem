@@ -1,0 +1,178 @@
+﻿
+@{
+    ViewData["Title"] = "AdminiAccountManagement";
+}
+
+<div id="account">
+    <div>
+        <button class="addaccountbtn" @@click.prevent="AddUserModal">新增帳號</button>
+    </div>
+
+    <div class="cart_area   active tab-pane fade show" id="tabs-1" role="tabpanel">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">選取</th>
+                                <th scope="col">管理員帳號</th>
+                                <th scope="col">管理員Email</th>
+                                <th scope="col">管理員名稱</th>
+                                <th scope="col">權限</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item,index) in userdataArray">
+                                <td>
+                                    <input class="checkbox paymentcheckbox" type="checkbox" />
+                                </td>
+                                <td>
+                                    <div class="">
+                                        <p>{{ item.account }}</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <p>{{ item.email }}</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="">
+
+                                        <span class="count">{{ item.name }}</span>
+
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <p>{{ item.authority }}</p>
+                                    </div>
+                                </td>
+                                <td>
+
+                                    <a class="mr-2 text-primary">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a class="delete text-danger">
+                                        <i class="far fa-trash-alt"></i>
+                                    </a>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">新增管理員帳號</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="confirmProduct">
+                        <div class="row justify-content-center">
+                            <form class="col-12">
+                                <h5 class="text-start text-dark pb-2 border-bottom">
+                                    管理員資訊
+                                </h5>
+                                <div class="form-group text-start text-dark mb-2">
+                                    <label class="" for="useraccount ">管理員帳號</label>
+                                    <input type="text" class="form-control" name="account" id="useraccount"
+                                           placeholder="輸入姓名"/> <span class="text-danger"></span>
+                                </div>
+                                <div class="form-group text-start text-dark mb-2">
+                                    <label class="" for="useremail">管理員Email</label>
+                                    <input type="email" class="form-control" name="email" id="useremail"
+                                           placeholder="請輸入Email"/> <span class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group text-start text-dark mb-2">
+                                    <label class="" for="username ">管理員名稱</label>
+                                    <input type="text" class="form-control" name="name" id="username"
+                                           placeholder="輸入名稱"/> <span class="text-danger"></span>
+                                </div>
+                                <div class="form-group text-start text-dark mb-2">
+                                    <label class=""
+                                           for="authority">管理員權限</label>
+                                    <select id="authority">
+                                        <option>請選擇管理員權限</option>
+                                        <option value="0">全功能</option>
+                                        <option value="1">會員管理&訂單管理</option>
+                                        <option value="2">首頁管理&總覽</option>
+                                        <option value="3">管理員帳號管理</option>
+                                    </select>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex">
+                    <button type="button" class="w-50 btn btn-warning" >加入</button>
+                    <button type="button" class="w-50 btn btn-dark" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section TopCSS{ 
+<style>
+
+    .addaccountbtn {
+        width: 90px;
+        height: 40px;
+        border-radius: 5px;
+        color: white;
+        background-color:#5b7dca;
+        background-repeat: no-repeat;
+        font-weight: bolder;
+        margin-bottom: 10px;
+        margin-left: 30px;
+        font-size: 15px;
+        border: 0.5px solid #9e9696;
+    }
+</style>
+
+}
+
+@section endJS{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        let Account = new Vue({
+            el: "#account",
+            data: {
+                userdataArray: [],
+                modal: {},
+            },
+            methods: {
+                GetUserData() {
+                    axios.get('/api/LoginApi/GetUserAccountData')
+                        .then(res => {
+                            this.userdataArray = res.data.result;
+                            console.log(this.userdataArray);
+                            console.log('aaaaa');
+                        })
+                },
+                AddUserModal() {
+                    $('#staticBackdrop').modal('show')
+                }
+            },
+            created() {
+                this.GetUserData();
+            }
+        })
+    </script>
+}
+
