@@ -79,6 +79,10 @@
             "System.Linq.Expressions": {
               "target": "Package",
               "version": "[4.3.0, )"
+            },
+            "toastr": {
+              "target": "Package",
+              "version": "[2.1.1, )"
             }
           },
           "imports": [
