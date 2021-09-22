@@ -10,11 +10,11 @@ using Background_ProFinder.Repositories.Interfaces;
 
 namespace Background_ProFinder.Repositories
 {
-    public class OrderRepository :GeneralRepository, IOrderRepository
+    public class OrderRepository : GeneralRepository, IOrderRepository
     {
-        public OrderRepository(ThirdGroupContext context, ILogger<Order> logger): base(context, logger)
+        public OrderRepository(ThirdGroupContext context, ILogger<Order> logger) : base(context, logger)
         {
-            
+
         }
 
         public bool GiveMoneyToProposer(int orderId)
@@ -42,7 +42,7 @@ namespace Background_ProFinder.Repositories
                     result = true;
                     return result;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     string exMag = ex.Message;
                     //交易失敗

@@ -22,7 +22,6 @@ namespace Background_ProFinder.Repositories
 
         public virtual void Create<T>(T entity) where T : class
         {
-
             try
             {
                 _context.Entry(entity).State = EntityState.Added;
@@ -34,11 +33,9 @@ namespace Background_ProFinder.Repositories
                 _logger.LogError(ex, "{Repo} Create method error", typeof(T));
 
             }
-
-
         }
 
-        public void Update<T>(T entity) where T : class
+        public virtual void Update<T>(T entity) where T : class
         {
 
             try
@@ -56,7 +53,7 @@ namespace Background_ProFinder.Repositories
 
         }
 
-        public void Delete<T>(T entity) where T : class
+        public virtual void Delete<T>(T entity) where T : class
         {
             using (var transaction = _context.Database.BeginTransaction())
             {
@@ -74,7 +71,7 @@ namespace Background_ProFinder.Repositories
             }
         }
 
-        public IQueryable<T> GetAll<T>() where T : class
+        public virtual IQueryable<T> GetAll<T>() where T : class
         {
             try
             {

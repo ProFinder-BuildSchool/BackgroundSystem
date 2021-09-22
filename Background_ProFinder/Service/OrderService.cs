@@ -2,7 +2,7 @@
 using Background_ProFinder.Models.ViewModel;
 using Background_ProFinder.Repositories;
 using Background_ProFinder.Repositories.Interfaces;
-using Background_ProFinder.Services.Interfaces;
+using Background_ProFinder.Service.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Background_ProFinder.Services
+namespace Background_ProFinder.Service
 {
     public class OrderService : IOrderService
     {
@@ -64,8 +64,8 @@ namespace Background_ProFinder.Services
 
                 //計算完成日期
                 var dealedDate = (DateTime)o.DealedDate;
-                var dealedDateString = dealedDate.ToString("d");
-                var completeDateString = dealedDate.AddDays(predictDays).Date.ToString("d");
+                var dealedDateString = dealedDate.ToString("yyyy/MM/dd");
+                var completeDateString = dealedDate.AddDays(predictDays).Date.ToString("yyyy/MM/dd");
                 var isComplete = o.OrderStatus == 3 ? true : false;
                 orderDetails.Add(new OrderManagementViewModel
                 {

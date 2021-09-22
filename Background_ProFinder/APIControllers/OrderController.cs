@@ -1,16 +1,8 @@
 ﻿using Background_ProFinder.Models.APIModel;
-using Background_ProFinder.Models.DBModel;
-using Background_ProFinder.Models.ViewModel;
-using Background_ProFinder.Repositories;
-using Background_ProFinder.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
+using Background_ProFinder.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace Background_ProFinder.APIControllers
 {
