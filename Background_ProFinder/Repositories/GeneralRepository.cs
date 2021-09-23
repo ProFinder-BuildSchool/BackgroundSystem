@@ -10,58 +10,68 @@ using System.Threading.Tasks;
 
 namespace Background_ProFinder.Repositories
 {
-    public class GeneralRepository<T>:IGeneralRepository<T> where T: class
+    public class GeneralRepository : IGeneralRepository
     {
         protected ThirdGroupContext _context;
         protected readonly ILogger _logger;
-        public GeneralRepository(ThirdGroupContext context, ILogger<T> logger)
+        public GeneralRepository(ThirdGroupContext context, ILogger logger)
         {
             _context = context;
             _logger = logger;
         }
 
-        public void Create(T entity)
+        public virtual void Create<T>(T entity) where T : class
         {
             try
             {
                 _context.Entry(entity).State = EntityState.Added;
                 _context.SaveChanges();
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex, "{Repo} Create method error", typeof(T));
+
             }
-            
         }
 
-        public void Update(T entity)
+        public virtual void Update<T>(T entity) where T : class
         {
+
             try
             {
                 _context.Entry(entity).State = EntityState.Modified;
                 _context.SaveChanges();
+
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "{Repo} Update method error", typeof(T));
+
             }
-           
+
+
         }
 
-        public void Delete(T entity)
+        public virtual void Delete<T>(T entity) where T : class
         {
-            try
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                _context.Entry(entity).State = EntityState.Deleted;
-                _context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "{Repo} Delete method error", typeof(T));
+                try
+                {
+                    _context.Entry(entity).State = EntityState.Deleted;
+                    _context.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "{Repo} Delete method error", typeof(T));
+                    transaction.Rollback();
+                }
             }
         }
 
-        public IQueryable<T> GetAll()
+        public virtual IQueryable<T> GetAll<T>() where T : class
         {
             try
             {
@@ -72,7 +82,8 @@ namespace Background_ProFinder.Repositories
                 _logger.LogError(ex, "{Repo} GetAll method error", typeof(T));
                 return null;
             }
-            
+
         }
+
     }
 }
