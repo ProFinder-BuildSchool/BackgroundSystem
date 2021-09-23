@@ -60,6 +60,7 @@ namespace Background_ProFinder
 
             //ª`¤JServices
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IMemService, MemService>();
             services.AddTransient<LoginService>();
         }
         ///
