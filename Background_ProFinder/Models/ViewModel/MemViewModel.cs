@@ -18,6 +18,7 @@ namespace Background_ProFinder.Models.ViewModel
         public string IdentityString { get; set; }
 
         public int? LocationId { get; set; }
+        public string LocationString { get; set; }
         public string UserId { get; set; }
 
     }

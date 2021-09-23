@@ -14,10 +14,13 @@ namespace Background_ProFinder.Service
     public class MemService : IMemService
     {
         private readonly IMemberRepository _memberInfoRepo;
+        private readonly ILocationsRepository _locationsRepo;
+
         //Location
-        public MemService(IMemberRepository memberRepo)
+        public MemService(IMemberRepository memberRepo, ILocationsRepository locationsRepo)
         {
             _memberInfoRepo = memberRepo;
+            _locationsRepo = locationsRepo;
 
         }
 
@@ -35,7 +38,13 @@ namespace Background_ProFinder.Service
 
                 var identity = m.Identity != null ? (Enum.Enum.Identity)m.Identity : 0;
                 var identityString = m.Identity != null ? ((Enum.Enum.Identity)m.Identity).ToString("g") : "NoRecord";
-                
+
+                //var location = _locationsRepo.GetAll<Location>().FirstOrDefault(l=>l.LocationId==m.LocationId);
+                var location = m.LocationId != null ? _locationsRepo.GetAll<Location>().FirstOrDefault(x => x.LocationId == m.LocationId) : null;
+
+                var locationString = m.LocationId != null ? location.LocationName : "NoRecord";
+
+
                 memList.Add(new MemViewModel
                 {
                     MemberId = m.MemberId,
@@ -44,7 +53,9 @@ namespace Background_ProFinder.Service
                     Email = Email,
                     UserId = UserId,
                     Identity = identity,
-                    IdentityString = identityString
+                    IdentityString = identityString,
+                    LocationId = m.LocationId,
+                    LocationString = locationString
                 });
             }
             return JsonConvert.SerializeObject(memList);

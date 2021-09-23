@@ -57,13 +57,15 @@ namespace Background_ProFinder
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<IQuotationRepository, QuotationRepository>();
             services.AddTransient<IMemberRepository, MemberRepository>();
+            services.AddTransient<ILocationsRepository, LocationsRepository>();
 
+            
             //ª`¤JServices
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IMemService, MemService>();
             services.AddTransient<LoginService>();
         }
-        ///
+        
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
