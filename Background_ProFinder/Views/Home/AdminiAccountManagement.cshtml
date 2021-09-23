@@ -82,30 +82,40 @@
                     <div class="confirmProduct">
                         <div class="row justify-content-center">
                             <form class="col-12">
-                                <h5 class="text-start text-dark pb-2 border-bottom">
+                                <h5 class="text-start text-dark pb-2">
                                     管理員資訊
                                 </h5>
                                 <div class="form-group text-start text-dark mb-2">
-                                    <label class="" for="useraccount ">管理員帳號</label>
+                                    <label class="" for="useraccount ">管理員帳號:{{ userInfo.Account }}</label>
                                     <input type="text" class="form-control" name="account" id="useraccount"
-                                           placeholder="輸入姓名"/> <span class="text-danger"></span>
+                                           placeholder="輸入帳號" v-model="userInfo.Account" />
+                                    <span class="text-danger"></span>
                                 </div>
                                 <div class="form-group text-start text-dark mb-2">
-                                    <label class="" for="useremail">管理員Email</label>
-                                    <input type="email" class="form-control" name="email" id="useremail"
-                                           placeholder="請輸入Email"/> <span class="text-danger"></span>
+                                    <label class="" for="userpassword">管理員密碼:{{ userInfo.Password }}</label>
+                                    <input type="text" class="form-control" name="userpassword" id="userpassword"
+                                           placeholder="請輸入密碼" v-model="userInfo.Password" />
+                                    <span class="text-danger"></span>
+                                </div>
+                                <div class="form-group text-start text-dark mb-2">
+                                    <label class="" for="useremail">管理員Email:{{ userInfo.Email }}</label>
+                                    <input v-validate="'required|email'" type="email" class="form-control" name="email" id="useremail"
+                                           placeholder="請輸入Email" v-model="userInfo.Email" />
+                                    <span class="text-danger" v-if="errors.has('email')">請輸入正確EMAIL格式</span>
                                 </div>
 
                                 <div class="form-group text-start text-dark mb-2">
-                                    <label class="" for="username ">管理員名稱</label>
+                                    <label class="" for="username ">管理員名稱:{{ userInfo.AccountName }}</label>
                                     <input type="text" class="form-control" name="name" id="username"
-                                           placeholder="輸入名稱"/> <span class="text-danger"></span>
+                                           placeholder="輸入名稱" v-model="userInfo.AccountName" />
+                                    <span class="text-danger"></span>
                                 </div>
                                 <div class="form-group text-start text-dark mb-2">
                                     <label class=""
-                                           for="authority">管理員權限</label>
-                                    <select id="authority">
-                                        <option>請選擇管理員權限</option>
+                                           for="authority">管理員權限:{{ userInfo.Authority }}</label>
+                                    <br />
+                                    <select id="authority" class="form-control" v-model="userInfo.Authority">
+                                        <option value="">---請選擇管理員權限---</option>
                                         <option value="0">全功能</option>
                                         <option value="1">會員管理&訂單管理</option>
                                         <option value="2">首頁管理&總覽</option>
@@ -118,43 +128,59 @@
                     </div>
                 </div>
                 <div class="modal-footer d-flex">
-                    <button type="button" class="w-50 btn btn-warning" >加入</button>
-                    <button type="button" class="w-50 btn btn-dark" data-dismiss="modal">關閉</button>
+                    <button type="button" class="w-25 btn btn-warning" v-on:click="AddUser">加入</button>
+                    <button type="button" class="w-25 btn btn-dark" data-dismiss="modal">關閉</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-@section TopCSS{ 
-<style>
+@section TopCSS{
+    <style>
 
-    .addaccountbtn {
-        width: 90px;
-        height: 40px;
-        border-radius: 5px;
-        color: white;
-        background-color:#5b7dca;
-        background-repeat: no-repeat;
-        font-weight: bolder;
-        margin-bottom: 10px;
-        margin-left: 30px;
-        font-size: 15px;
-        border: 0.5px solid #9e9696;
-    }
-</style>
+        .addaccountbtn {
+            width: 90px;
+            height: 40px;
+            border-radius: 5px;
+            color: white;
+            background-color: #5b7dca;
+            background-repeat: no-repeat;
+            font-weight: bolder;
+            margin-bottom: 10px;
+            margin-left: 30px;
+            font-size: 15px;
+            border: 0.5px solid #9e9696;
+        }
+    </style>
 
 }
 
 @section endJS{
+    <!-- jsdelivr cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/vee-validate@@<3.0.0/dist/vee-validate.js"></script>
+
+    <!-- unpkg -->
+    <script src="https://unpkg.com/vee-validate@@<3.0.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+    <script>
+        Vue.use(VeeValidate); // good to go.
+    </script>
     <script>
         let Account = new Vue({
             el: "#account",
             data: {
                 userdataArray: [],
                 modal: {},
+                userInfo: {
+                    AccountName: '',
+                    Password: '',
+                    Email: '',
+                    Account: '',
+                    Authority: ''
+                }
             },
             methods: {
                 GetUserData() {
@@ -167,6 +193,19 @@
                 },
                 AddUserModal() {
                     $('#staticBackdrop').modal('show')
+                },
+                AddUser() {
+                    console.log(this.userInfo.Authority)
+                    if (this.userInfo.Authority != '') {
+                        axios.post(`/api/LoginApi/AddUser`, this.userInfo)
+                            .then(res => {
+                                console.log(res.data.result)
+                            })
+                    }
+                    else {
+                        alert('aaaa')
+                    }
+
                 }
             },
             created() {
