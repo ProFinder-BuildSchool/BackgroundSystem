@@ -48,11 +48,21 @@ namespace Background_ProFinder.Controllers
         {
             return View();
         }
+        public IActionResult HomePage()
+        {
+            return View();
+        }
+
 
         public IActionResult AdminiAccountManagement()
         {
             return View();
         }
 
+
+        public IActionResult OrderManagement()
+        {
+            return View();
+        }
     }
 }

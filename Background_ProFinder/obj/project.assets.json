@@ -8068,7 +8068,8 @@
       "Microsoft.AspNetCore.Identity.UI >= 5.0.3",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.8",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.8",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 5.0.2"
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 5.0.2",
+      "System.Linq.Expressions >= 4.3.0"
     ]
   },
   "packageFolders": {
@@ -8078,11 +8079,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ac556\\Source\\Repos\\BackgroundSystem\\Background_ProFinder\\Background_ProFinder.csproj",
+      "projectUniqueName": "C:\\Users\\ac556\\source\\repos\\BackgroundSystem\\Background_ProFinder\\Background_ProFinder.csproj",
       "projectName": "Background_ProFinder",
-      "projectPath": "C:\\Users\\ac556\\Source\\Repos\\BackgroundSystem\\Background_ProFinder\\Background_ProFinder.csproj",
+      "projectPath": "C:\\Users\\ac556\\source\\repos\\BackgroundSystem\\Background_ProFinder\\Background_ProFinder.csproj",
       "packagesPath": "C:\\Users\\ac556\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ac556\\Source\\Repos\\BackgroundSystem\\Background_ProFinder\\obj\\",
+      "outputPath": "C:\\Users\\ac556\\source\\repos\\BackgroundSystem\\Background_ProFinder\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -8144,6 +8145,10 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[5.0.2, )"
+          },
+          "System.Linq.Expressions": {
+            "target": "Package",
+            "version": "[4.3.0, )"
           }
         },
         "imports": [
