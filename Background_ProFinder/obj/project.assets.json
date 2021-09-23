@@ -8236,7 +8236,7 @@
       "code": "Undefined",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "讀取快取檔案 C:\\Users\\wan\\Desktop\\BuildSchool專題\\back\\Background_ProFinder\\obj\\project.nuget.cache 時發生問題: Invalid property identifier character: <. Path 'version', line 3, position 0."
+      "message": "讀取快取檔案 C:\\Users\\User\\Desktop\\BackgroundSystem_Profinder\\Background_ProFinder\\obj\\project.nuget.cache 時發生問題: Invalid property identifier character: <. Path 'version', line 3, position 0."
     }
   ]
 }
