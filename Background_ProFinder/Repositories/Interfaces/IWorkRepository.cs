@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 
 namespace Background_ProFinder.Repositories.Interfaces
 {
-    public interface IQuotationRepository : IGeneralRepository
+    public interface IWorkRepository:IGeneralRepository
     {
-      
     }
 }
