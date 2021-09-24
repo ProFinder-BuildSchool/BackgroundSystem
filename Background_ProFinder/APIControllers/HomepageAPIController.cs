@@ -49,25 +49,7 @@ namespace Background_ProFinder.APIControllers
             try
             {
                 var temp = _ctx.Works.FirstOrDefault(x => x.WorkId == FeatureWorkList.WorkID);
-
-                if (temp.Featured == 0)
-                {
-                    FeaturedWork data = new FeaturedWork();
-                    data.Memo = FeatureWorkList.Memo;
-                    data.WorkId = FeatureWorkList.WorkID;
-
-                    temp.Featured = 1;
-                    _ctx.FeaturedWorks.Add(data);
-
-                }
-                else
-                {
-                    temp.Featured = 0;
-                    //FeaturedWork data = new FeaturedWork();
-                    //data.WorkId = FeatureWorkList.WorkID;
-                    //_ctx.FeaturedWorks.Remove(data);
-                }
-
+                temp.Memo = FeatureWorkList.Memo;
                 _ctx.SaveChanges();
 
 
@@ -95,20 +77,16 @@ namespace Background_ProFinder.APIControllers
 
                 if (temp.Featured == 0)
                 {
-                    FeaturedWork data = new FeaturedWork();
-                    data.Memo = FeatureWorkList.Memo;
-                    data.WorkId = FeatureWorkList.WorkID;
+                   
 
                     temp.Featured = 1;
-                    _ctx.FeaturedWorks.Add(data);
+                 
 
                 }
                 else
                 {
                     temp.Featured = 0;
-                    //FeaturedWork data = new FeaturedWork();
-                    //data.WorkId = FeatureWorkList.WorkID;
-                    //_ctx.FeaturedWorks.Remove(data);
+                   
                 }
 
                 _ctx.SaveChanges();
@@ -165,8 +143,8 @@ namespace Background_ProFinder.APIControllers
                                   SubCategoryName = S.SubCategoryName,
                                   studio = W.Client,
                                   MemberID = W.MemberId,
-                                  Featured = W.Featured
-                                
+                                  Featured = W.Featured,
+                                  Memo=W.Memo
                               }).ToList()
                               .GroupBy(x =>x.WorkID)
                               .Select(x=> new WorkViewModel
@@ -176,7 +154,8 @@ namespace Background_ProFinder.APIControllers
                                   SubCategoryName = x.First().SubCategoryName,
                                   studio = x.First().studio,
                                   MemberID = (int)x.First().MemberID,
-                                  Featured = (int)x.First().Featured
+                                  Featured = (int)x.First().Featured,
+                                  Memo=x.First().Memo,
                               }).Where(x=>x.WorkPicture.Count()>=3).OrderBy(x => x.WorkID).ToList();
 
 
