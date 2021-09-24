@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "peR+NIcnPfFRpIX8hB5V6GCJI/fdoOS25FWWyN+FdgknqWmO/HckkzEjyHyagCo3eVJJgocYGZsSbOKwkUDcpA==",
+  "dgSpecHash": "2wjKq44Mgxzr81tPiD5gr1zydZprbWDsrYVnEHKVa0hnZe4zGJrLVkfYBf+WHecqjjtFp6JKzVw5onuV8QZa8w==",
   "success": true,
   "projectFilePath": "C:\\Users\\yoyo4\\Desktop\\ProFinderBackGround\\Background_ProFinder\\Background_ProFinder.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\yoyo4\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\yoyo4\\.nuget\\packages\\jquery\\1.6.3\\jquery.1.6.3.nupkg.sha512",
     "C:\\Users\\yoyo4\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
     "C:\\Users\\yoyo4\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\yoyo4\\.nuget\\packages\\microsoft.aspnetcore.authentication.cookies\\2.2.0\\microsoft.aspnetcore.authentication.cookies.2.2.0.nupkg.sha512",
@@ -156,7 +157,8 @@
     "C:\\Users\\yoyo4\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\yoyo4\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\yoyo4\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\yoyo4\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    "C:\\Users\\yoyo4\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\yoyo4\\.nuget\\packages\\toastr\\2.1.1\\toastr.2.1.1.nupkg.sha512"
   ],
   "logs": []
 }
