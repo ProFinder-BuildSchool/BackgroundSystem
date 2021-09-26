@@ -5,9 +5,9 @@
 *@
 @{
 }
-<div class="container-fluid">
+<div class="container-fluid" id="app">
 
- 
+
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -29,7 +29,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 使用者總數
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">30人</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{MemberCount}}人</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-person-booth fa-2x text-gray-300"></i>
@@ -48,7 +48,7 @@
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 產品總數
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">150項</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{QuotationCount}}項</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -69,15 +69,15 @@
                             </div>
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">18件</div>
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{OrderCount}}件</div>
                                 </div>
                                 @*<div class="col">
-                                    <div class="progress progress-sm mr-2">
-                                        <div class="progress-bar bg-info" role="progressbar"
-                                             style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                             aria-valuemax="100"></div>
-                                    </div>
-                                </div>*@
+                                        <div class="progress progress-sm mr-2">
+                                            <div class="progress-bar bg-info" role="progressbar"
+                                                 style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                                 aria-valuemax="100"></div>
+                                        </div>
+                                    </div>*@
                             </div>
                         </div>
                         <div class="col-auto">
@@ -97,7 +97,7 @@
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 銷售總額
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">NT$24,900</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">NT${{OrderRevenue}}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -183,7 +183,7 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">前五大項商品銷售比例圓餅圖</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">前五大項商品比例圓餅圖</h6>
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -222,8 +222,50 @@
 
 @section endJS{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-@*折線圖*@
+
+
+    <script>
+
+        var app = new Vue({
+            el: "#app",
+            data:{
+                MemberCount: 0,
+                OrderCount: 0,
+                QuotationCount: 0,
+                OrderRevenue: 0,
+                Piechartname: [],
+                Piechartcnt: [],
+            },
+            created: function () {
+                axios({ method: "Get", url: "/api/Dashboard" }).then(res => {
+                    //this.items.push(...JSON.parse(res.data.result));
+                    //this.allitems = this.items;
+                    //console.log(this.items);
+                    this.MemberCount = JSON.parse(res.data.result).MemberCount;
+                    this.QuotationCount = JSON.parse(res.data.result).QuotationCount;
+                    this.OrderCount = JSON.parse(res.data.result).OrderCount;
+                    this.OrderRevenue = JSON.parse(res.data.result).OrderRevenue;
+                    this.Piechartname.push(...JSON.parse(res.data.result).PieChartName);
+                    this.Piechartcnt.push(...JSON.parse(res.data.result).PieChartCnt);
+                    console.log(JSON.parse(res.data.result));
+                });
+            },
+
+        })
+    </script>
+
+
+
+
+
+    @*折線圖*@
     <script>
 
         $(document).ready(function () {
@@ -350,46 +392,46 @@
     </script>
 
 
-@*圓餅圖*@
-<script>
-    // Set new default font family and font color to mimic Bootstrap's default styling
-    Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-    Chart.defaults.global.defaultFontColor = '#858796';
+    @*圓餅圖*@
+    <script>
+        // Set new default font family and font color to mimic Bootstrap's default styling
+        Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.global.defaultFontColor = '#858796';
 
-    // Pie Chart Example
-    var ctx = document.getElementById("myPieChart");
-    var myPieChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ["Direct", "Referral", "Social"],
-            datasets: [{
-                data: [55, 30, 15],
-                backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-                hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
-                hoverBorderColor: "rgba(234, 236, 244, 1)",
-            }],
-        },
-        options: {
-            maintainAspectRatio: false,
-            tooltips: {
-                backgroundColor: "rgb(255,255,255)",
-                bodyFontColor: "#858796",
-                borderColor: '#dddfeb',
-                borderWidth: 1,
-                xPadding: 15,
-                yPadding: 15,
-                displayColors: false,
-                caretPadding: 10,
+        // Pie Chart Example
+        var ctx = document.getElementById("myPieChart");
+        var myPieChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ["Direct", "Referral", "Social"],
+                datasets: [{
+                    data: [5, 6, 5],
+                    backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+                    hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+                    hoverBorderColor: "rgba(234, 236, 244, 1)",
+                }],
             },
-            legend: {
-                display: false
+            options: {
+                maintainAspectRatio: false,
+                tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    caretPadding: 10,
+                },
+                legend: {
+                    display: false
+                },
+                cutoutPercentage: 80,
             },
-            cutoutPercentage: 80,
-        },
-    });
+        });
 
 
-</script>
+    </script>
 
 
 
