@@ -12,7 +12,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Background_ProFinder.Models.DBModel;
 using Background_ProFinder.Models.ViewModel;
-
+using Background_ProFinder.Repositories;
+using Background_ProFinder.Service;
 
 namespace Background_ProFinder.Controllers
 {
@@ -20,6 +21,7 @@ namespace Background_ProFinder.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ThirdGroupContext _ctx;
+     
 
         public HomeController(ILogger<HomeController> logger,ThirdGroupContext context)
         {
@@ -66,6 +68,11 @@ namespace Background_ProFinder.Controllers
         }
 
         public IActionResult Dashboard()
+        {
+           
+            return View();
+        }
+        public IActionResult DashboardTEST()
         {
             return View();
         }

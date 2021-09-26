@@ -668,3 +668,4 @@ C:\Users\wan\Desktop\BuildSchool專題\back\Background_ProFinder\obj\Debug\net5.
 C:\Users\wan\Desktop\BuildSchool專題\back\Background_ProFinder\obj\Debug\net5.0\ref\Background_ProFinder.dll
 C:\Users\wan\Desktop\BuildSchool專題\back\Background_ProFinder\obj\Debug\net5.0\Background_ProFinder.pdb
 C:\Users\wan\Desktop\BuildSchool專題\back\Background_ProFinder\obj\Debug\net5.0\Background_ProFinder.genruntimeconfig.cache
+C:\Users\wan\Desktop\BuildSchool專題\back\Background_ProFinder\obj\Debug\net5.0\Razor\Views\Home\DashboardTEST.cshtml.g.cs

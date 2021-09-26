@@ -17,6 +17,8 @@ namespace Background_ProFinder.Models.ViewModel
 
         public IEnumerable<int> LaunchCnt { get; set;}
         public IEnumerable<string> LaunchDay { get; set; }
+
+
         //public IEnumerable <PieChartViewModel> PieChart { get; set; }
 
 
