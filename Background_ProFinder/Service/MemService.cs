@@ -31,18 +31,18 @@ namespace Background_ProFinder.Service
             foreach (var m in allMems)
             {
                 var NickName = m.NickName != null ? m.NickName : "NoRecord";
-                var Cellphone = m.Cellphone != null ? m.Cellphone : "NoRecord";
-                var UserId = m.UserId != null ? m.UserId : "NoRecord";
-                var Email = m.Email != null ? m.Email : "NoRecord";
+                var Cellphone = m.Cellphone != null ? m.Cellphone : "-";
+                var UserId = m.UserId != null ? m.UserId : "-";
+                var Email = m.Email != null ? m.Email : "-";
 
 
                 var identity = m.Identity != null ? (Enum.Enum.Identity)m.Identity : 0;
-                var identityString = m.Identity != null ? ((Enum.Enum.Identity)m.Identity).ToString("g") : "NoRecord";
+                var identityString = m.Identity != null ? ((Enum.Enum.Identity)m.Identity).ToString("g") : "-";
 
                 //var location = _locationsRepo.GetAll<Location>().FirstOrDefault(l=>l.LocationId==m.LocationId);
                 var location = m.LocationId != null ? _locationsRepo.GetAll<Location>().FirstOrDefault(x => x.LocationId == m.LocationId) : null;
 
-                var locationString = m.LocationId != null ? location.LocationName : "NoRecord";
+                var locationString = m.LocationId != null ? location.LocationName : "-";
 
 
                 memList.Add(new MemViewModel
