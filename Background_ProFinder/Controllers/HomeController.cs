@@ -32,6 +32,17 @@ namespace Background_ProFinder.Controllers
         [Authorize]
         public IActionResult Index()
         {
+            ClaimsPrincipal principal = HttpContext.User;
+            if (null != principal)
+            {
+                foreach (Claim claim in principal.Claims)
+                {
+                    if (claim.Type == ClaimTypes.Role)
+                    {
+                        ViewData["Role"] = claim.Value;
+                    }
+                }
+            }
             return View();
         }
 
@@ -50,20 +61,55 @@ namespace Background_ProFinder.Controllers
         {
             return View();
         }
+
+        [Authorize]
         public IActionResult HomePage()
         {
+            ClaimsPrincipal principal = HttpContext.User;
+            if (null != principal)
+            {
+                foreach (Claim claim in principal.Claims)
+                {
+                    if (claim.Type == ClaimTypes.Role)
+                    {
+                        ViewData["Role"] = claim.Value;
+                    }
+                }
+            }
             return View();
         }
 
-
+        [Authorize]
         public IActionResult AdminiAccountManagement()
         {
+            ClaimsPrincipal principal = HttpContext.User;
+            if (null != principal)
+            {
+                foreach (Claim claim in principal.Claims)
+                {
+                    if (claim.Type == ClaimTypes.Role)
+                    {
+                        ViewData["Role"] = claim.Value;
+                    }
+                }
+            }
             return View();
         }
 
-
+        [Authorize]
         public IActionResult OrderManagement()
         {
+            ClaimsPrincipal principal = HttpContext.User;
+            if (null != principal)
+            {
+                foreach (Claim claim in principal.Claims)
+                {
+                    if (claim.Type == ClaimTypes.Role)
+                    {
+                        ViewData["Role"] = claim.Value;
+                    }
+                }
+            }
             return View();
         }
 
@@ -74,7 +120,17 @@ namespace Background_ProFinder.Controllers
 
         public IActionResult Dashboard()
         {
-           
+            ClaimsPrincipal principal = HttpContext.User;
+            if (null != principal)
+            {
+                foreach (Claim claim in principal.Claims)
+                {
+                    if (claim.Type == ClaimTypes.Role)
+                    {
+                        ViewData["Role"] = claim.Value;
+                    }
+                }
+            }
             return View();
         }
      

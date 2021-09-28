@@ -166,6 +166,7 @@ namespace Background_ProFinder.Models.DBModel
                 entity.Property(e => e.Name).HasMaxLength(50);
 
                 entity.Property(e => e.Password).HasMaxLength(100);
+
             });
 
             modelBuilder.Entity<BackRole>(entity =>

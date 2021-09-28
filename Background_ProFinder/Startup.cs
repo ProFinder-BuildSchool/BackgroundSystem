@@ -44,7 +44,6 @@ namespace Background_ProFinder
             services.AddDbContext<ThirdGroupContext>();
 
             services.AddDbContext<ThirdGroupContext>();
-
             services.AddScoped<LoginService>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -60,11 +59,14 @@ namespace Background_ProFinder
             services.AddTransient<IBannerRepository, BannerRepository>();
             services.AddTransient<IWorkRepository, WorkRepository>();
             services.AddTransient<ILocationsRepository, LocationsRepository>();
+            services.AddTransient<IBackAccountRepository, BackAccountRepository>();
+
 
             services.AddTransient<IGeneralRepository, DashboardRepository>();
             
             //ª`¤JServices
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<ILoginService, LoginService>();
             services.AddTransient<IHomePageService, HomePageService>();
             
 

@@ -13,5 +13,6 @@ namespace Background_ProFinder.Models.DBModel
         public string Password { get; set; }
         public string Account { get; set; }
         public int? Authority { get; set; }
+        public int? Deactivated { get; set; }
     }
 }

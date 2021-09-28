@@ -28,6 +28,7 @@ namespace Background_ProFinder.Controllers
             return View();
         }
 
+
         public IActionResult Login()
         {
             return View();
@@ -52,12 +53,19 @@ namespace Background_ProFinder.Controllers
             if (ModelState.IsValid)
             {
                 var result = _loginService.CompareUserData(LoginData);
+                var accountstatus = _loginService.IsAccountDeactivated(LoginData);
+                if (!accountstatus)
+                {
+                    ViewData["ErrorMessage"] = "此帳號已停用";
+                    return View();
+                }
 
                 if (result == null)
                 {
                     ViewData["ErrorMessage"] = "帳號與密碼有錯";
                     return View();
                 }
+
                 else
                 {
                     #region ***** 不使用ASP.NET Core Identity的 cookie 驗證 *****
@@ -65,9 +73,11 @@ namespace Background_ProFinder.Controllers
                     //創建cookie 保存用户訊息，使用claim將用户訊息序列化並儲存在cookie中
                     var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Name,result.Name)
+                        new Claim(ClaimTypes.Name,result.Name),
 
-                        //new Claim(ClaimTypes.Role,(int)LoginData.Authority) //如果要有「群組、角色、權限」，可以加入這一段 
+                        new Claim(ClaimTypes.Role,result.Authority.ToString()), //如果要有「群組、角色、權限」，可以加入這一段 
+
+                        new Claim("AdminId",result.AdminId.ToString())
                     };
 
                     // 底下的 ** 登入 Login ** 需要下面兩個參數 (1) claimsIdentity  (2) authProperties
@@ -83,13 +93,13 @@ namespace Background_ProFinder.Controllers
 
 
                         // 從現在算起，Cookie何時過期
-                        // ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),   
+                        ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(40),   
                         // The time at which the authentication ticket expires. A 
                         // value set here overrides the ExpireTimeSpan option of 
                         // CookieAuthenticationOptions set with AddCookie.
 
                         //是否持續存在，EX:登入的時候，勾選記住我
-                        //IsPersistent = true,
+                        IsPersistent = true,
                         // Whether the authentication session is persisted across 
                         // multiple requests. When used with cookies, controls
                         // whether the cookie's lifetime is absolute (matching the
@@ -107,13 +117,39 @@ namespace Background_ProFinder.Controllers
                     //登入
                     HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
                     #endregion
-
-                    return RedirectToAction("Index", "Home");
                 }
 
             }
 
-            return View();
+            return RedirectToAction("Index", "Home");
         }
+
+        [Authorize]
+        public IActionResult ResetPassword()
+        {
+            ClaimsPrincipal principal = HttpContext.User;
+            if(null != principal)
+            {
+                foreach(Claim claim in principal.Claims)
+                {
+                    if(claim.Type == "AdminId")
+                    {
+                        ViewData["AdminId"] = claim.Value;
+                    }
+                    if (claim.Type == ClaimTypes.Role)
+                    {
+                        ViewData["Role"] = claim.Value;
+                    }
+                }
+            }
+            return View();
+
+        }
+
+        //[Authorize(Roles = "0")]
+        //public IActionResult Index3()
+        //{
+        //    return View();    // 登入成功（會員）才可以看見
+        //}
     }
 }
