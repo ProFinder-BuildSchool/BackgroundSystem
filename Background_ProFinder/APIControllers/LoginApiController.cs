@@ -8,6 +8,7 @@ using Background_ProFinder.Models.ViewModel;
 using Background_ProFinder.Service;
 using System.Web;
 using Background_ProFinder.Models.APIModel;
+using Background_ProFinder.Service.Interfaces;
 
 namespace Background_ProFinder.APIControllers
 {
@@ -17,8 +18,8 @@ namespace Background_ProFinder.APIControllers
 
     public class LoginApiController : ControllerBase
     {
-        private readonly LoginService _loginService;
-        public LoginApiController(LoginService LoginService)
+        private readonly ILoginService _loginService;
+        public LoginApiController(ILoginService LoginService)
         {
             _loginService = LoginService;
         }
@@ -55,7 +56,55 @@ namespace Background_ProFinder.APIControllers
 
 
         }
+        [HttpPut]
+        public APIResult UpdateUserInfo(int AdminId, UpdateUserInfo VMdata)
+        {
+            bool result;
+            try
+            {
+                result = _loginService.UpdateUserInfo(AdminId, VMdata);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            }
 
 
+        }
+
+
+        [HttpPut]
+        public APIResult UpdateUserDeactivated(int adminId, int deactivatedNumber)
+        {
+            bool result;
+            try
+            {
+                result = _loginService.UpdateUserDeactivated(adminId, deactivatedNumber);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            }
+        }
+
+       [HttpPut]
+        public APIResult UpdatePassword(int adminId, string psw)
+        {
+            bool result;
+            try
+            {
+                result = _loginService.UpdatePassword(adminId, psw);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            }
+        }
     }
 }

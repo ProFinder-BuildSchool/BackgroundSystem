@@ -45,22 +45,23 @@ namespace Background_ProFinder
 
             services.AddDbContext<ThirdGroupContext>();
 
-            services.AddScoped<LoginService>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
                     //options.AccessDeniedPath = "Login/AccessDeny";
-                    options.LoginPath = new PathString("/Login/Login");
+                    options.LoginPath = "/Login/Login";
                 });
             //ª`¤JRepositories
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<IQuotationRepository, QuotationRepository>();
             services.AddTransient<IMemberRepository, MemberRepository>();
+            services.AddTransient<IBackAccountRepository, BackAccountRepository>();
+
 
             //ª`¤JServices
             services.AddTransient<IOrderService, OrderService>();
-            services.AddTransient<LoginService>();
+            services.AddTransient<ILoginService, LoginService>();
         }
         ///
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

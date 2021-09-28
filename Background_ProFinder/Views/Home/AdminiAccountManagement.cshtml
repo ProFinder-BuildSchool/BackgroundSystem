@@ -15,18 +15,21 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">選取</th>
+                                <th scope="col">狀態</th>
                                 <th scope="col">管理員帳號</th>
                                 <th scope="col">管理員Email</th>
                                 <th scope="col">管理員名稱</th>
                                 <th scope="col">權限</th>
-                                <th scope="col"></th>
+                                <th scope="col">設定</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="(item,index) in userdataArray">
                                 <td>
-                                    <input class="checkbox paymentcheckbox" type="checkbox" />
+                                    <div class="">
+                                        <div v-if="item.deactivated == 0">使用中</div>
+                                        <div v-else class="stopaccountmark">停用中</div>
+                                    </div>
                                 </td>
                                 <td>
                                     <div class="">
@@ -41,24 +44,19 @@
                                 <td>
                                     <div class="">
 
-                                        <span class="count">{{ item.name }}</span>
+                                        <span class="count">{{ item.accountName }}</span>
 
                                     </div>
                                 </td>
                                 <td>
                                     <div>
-                                        <p>{{ item.authority }}</p>
+                                        <p>{{ item.authorityName }}</p>
                                     </div>
                                 </td>
                                 <td>
-
-                                    <a class="mr-2 text-primary">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a class="delete text-danger">
-                                        <i class="far fa-trash-alt"></i>
-                                    </a>
-
+                                    <button class="editaccount" @@click="EditUserModal(index)">編輯</button>
+                                    <button class="stopaccount" v-if="item.deactivated == 0" @@click="StopAccountModal(index)">停用帳號</button>
+                                    <button class="enableaccount" v-else @@click="EnableAccount(index)">啟用帳號</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -68,8 +66,8 @@
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <!-- AddAccountModal -->
+    <div class="modal fade" id="AddAccountModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -86,35 +84,89 @@
                                     管理員資訊
                                 </h5>
                                 <div class="form-group text-start text-dark mb-2">
-                                    <label class="" for="useraccount ">管理員帳號:{{ userInfo.Account }}</label>
-                                    <input type="text" class="form-control" name="account" id="useraccount"
-                                           placeholder="輸入帳號" v-model="userInfo.Account" />
-                                    <span class="text-danger"></span>
+                                    <label class="" for="useraccount ">管理員帳號</label>
+                                    <input disabled type="text" class="form-control" name="account" id="useraccount"
+                                           placeholder="輸入帳號" :value="userInfo.Account" />
                                 </div>
                                 <div class="form-group text-start text-dark mb-2">
-                                    <label class="" for="userpassword">管理員密碼:{{ userInfo.Password }}</label>
-                                    <input type="text" class="form-control" name="userpassword" id="userpassword"
-                                           placeholder="請輸入密碼" v-model="userInfo.Password" />
-                                    <span class="text-danger"></span>
+                                    <label class="" for="userpassword">管理員預設密碼</label>
+                                    <input v-validate="'required'" data-vv-as="field" type="text" class="form-control" name="userpassword" id="userpassword"
+                                           placeholder="請輸入預設密碼" v-model="userInfo.Password" />
+                                    <span class="text-danger" v-if="errors.has('userpassword')">密碼欄位不得留空</span>
                                 </div>
                                 <div class="form-group text-start text-dark mb-2">
-                                    <label class="" for="useremail">管理員Email:{{ userInfo.Email }}</label>
+                                    <label class="" for="useremail">管理員Email</label>
                                     <input v-validate="'required|email'" type="email" class="form-control" name="email" id="useremail"
                                            placeholder="請輸入Email" v-model="userInfo.Email" />
-                                    <span class="text-danger" v-if="errors.has('email')">請輸入正確EMAIL格式</span>
+                                    <span class="text-danger" v-if="errors.has('email')">請輸入正確EMAIL格式或不得留空</span>
                                 </div>
 
                                 <div class="form-group text-start text-dark mb-2">
-                                    <label class="" for="username ">管理員名稱:{{ userInfo.AccountName }}</label>
-                                    <input type="text" class="form-control" name="name" id="username"
+                                    <label class="" for="username ">管理員名稱</label>
+                                    <input v-validate="'required'" data-vv-as="field" type="text" class="form-control" name="name" id="username"
                                            placeholder="輸入名稱" v-model="userInfo.AccountName" />
-                                    <span class="text-danger"></span>
+                                    <span class="text-danger" v-if="errors.has('name')">名稱欄位不得留空</span>
                                 </div>
                                 <div class="form-group text-start text-dark mb-2">
                                     <label class=""
-                                           for="authority">管理員權限:{{ userInfo.Authority }}</label>
+                                           for="authority">管理員權限</label>
                                     <br />
-                                    <select id="authority" class="form-control" v-model="userInfo.Authority">
+                                    <select id="authority" class="form-control" v-model="userInfo.Authority" v-validate="'required'" name="authority">
+                                        <option value="">---請選擇管理員權限---</option>
+                                        <option value="0">全功能</option>
+                                        <option value="1">會員管理&訂單管理</option>
+                                        <option value="2">首頁管理&總覽</option>
+                                        <option value="3">管理員帳號管理</option>
+                                    </select>
+                                    <span class="text-danger" v-if="errors.has('authority')">請選擇管理員權限</span>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex">
+                    <button type="button" class="w-25 btn btn-warning" v-on:click="AddUser">加入</button>
+                    <button type="button" class="w-25 btn btn-dark" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EditAccountModal -->
+    <div class="modal fade" id="EditAccountModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">編輯管理員資訊</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="confirmProduct">
+                        <div class="row justify-content-center">
+                            <form class="col-12">
+                                <h5 class="text-start text-dark pb-2">
+                                    管理員資訊
+                                </h5>
+
+                                <div class="form-group text-start text-dark mb-2">
+                                    <label class="" for="useremail">管理員Email</label>
+                                    <input type="email" class="form-control" name="editemail" id="useremail"
+                                           placeholder="請輸入Email" v-model="userModal.email" />
+                                </div>
+
+                                <div class="form-group text-start text-dark mb-2">
+                                    <label class="" for="username ">管理員名稱</label>
+                                    <input type="text" class="form-control" name="editname" id="username"
+                                           placeholder="輸入名稱" v-model="userModal.accountName" />
+                                </div>
+                                <div class="form-group text-start text-dark mb-2">
+                                    <label class=""
+                                           for="authority">管理員權限</label>
+                                    <br />
+                                    <select id="authority" class="form-control" v-model="userModal.authority" name="editauthority">
                                         <option value="">---請選擇管理員權限---</option>
                                         <option value="0">全功能</option>
                                         <option value="1">會員管理&訂單管理</option>
@@ -128,7 +180,35 @@
                     </div>
                 </div>
                 <div class="modal-footer d-flex">
-                    <button type="button" class="w-25 btn btn-warning" v-on:click="AddUser">加入</button>
+                    <button type="button" class="w-25 btn btn-warning" v-on:click="UpdateUserInfo">更新</button>
+                    <button type="button" class="w-25 btn btn-dark" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- StopAccountModal -->
+    <div class="modal fade" id="StopAccountModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">是否確認要進行停用帳號?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="confirmProduct">
+                        <div class="row justify-content-center">
+                            <div class="col-12">
+                                <h5 class="text-start text-dark pb-2">
+                                    <i class="fas fa-exclamation-triangle">若停用帳號此帳號將無法繼續使用</i>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex">
+                    <button type="button" class="w-25 btn btn-danger" v-on:click="StopAccount">確定</button>
                     <button type="button" class="w-25 btn btn-dark" data-dismiss="modal">關閉</button>
                 </div>
             </div>
@@ -152,6 +232,37 @@
             font-size: 15px;
             border: 0.5px solid #9e9696;
         }
+
+        .stopaccount,
+        .enableaccount,
+        .editaccount {
+            width: 70px;
+            height: 30px;
+            border-radius: 5px;
+            color: white;
+            background-color: #5b7dca;
+            background-repeat: no-repeat;
+            font-weight: bolder;
+            font-size: 13px;
+            margin: 0 10px 0 0;
+            border: 0.5px solid #9e9696;
+        }
+
+        .stopaccount {
+            background-color: #914040;
+        }
+
+        .enableaccount {
+            background-color: #6a6963;
+        }
+
+        .stopaccountmark {
+            color: #800c0c;
+        }
+
+        tr {
+            text-align: center;
+        }
     </style>
 
 }
@@ -165,21 +276,31 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 
+
     <script>
         Vue.use(VeeValidate); // good to go.
+    </script>
+
+    <!-- Vue toasted -->
+    <script src="https://unpkg.com/vue-toasted"></script>
+
+    <script>
+        Vue.use(Toasted)
     </script>
     <script>
         let Account = new Vue({
             el: "#account",
             data: {
                 userdataArray: [],
-                modal: {},
+                userModal: {},
+
                 userInfo: {
                     AccountName: '',
                     Password: '',
                     Email: '',
                     Account: '',
-                    Authority: ''
+                    Authority: '',
+                    Deactivated: '0'
                 }
             },
             methods: {
@@ -187,29 +308,114 @@
                     axios.get('/api/LoginApi/GetUserAccountData')
                         .then(res => {
                             this.userdataArray = res.data.result;
-                            console.log(this.userdataArray);
-                            console.log('aaaaa');
+                            this.userInfo.Account = this.userdataArray[0].newAccountNumber
+                            console.log(this.userdataArray)
                         })
                 },
                 AddUserModal() {
-                    $('#staticBackdrop').modal('show')
+                    this.GetUserData();
+                    
+                    $('#AddAccountModal').modal('show')
                 },
                 AddUser() {
-                    console.log(this.userInfo.Authority)
-                    if (this.userInfo.Authority != '') {
-                        axios.post(`/api/LoginApi/AddUser`, this.userInfo)
-                            .then(res => {
-                                console.log(res.data.result)
-                            })
-                    }
-                    else {
-                        alert('aaaa')
-                    }
-
+                    this.$validator.validate()
+                        .then((result) => {
+                        if (result) {
+                            axios.post(`/api/LoginApi/AddUser`, this.userInfo)
+                                .then(res => {
+                                    console.log(res.data.result)
+                                    this.GetUserData();
+                                    $('#AddAccountModal').modal('hide')
+                                    this.userInfo.AccountName = ''
+                                    this.userInfo.Password = ''
+                                    this.userInfo.Email = ''
+                                    this.userInfo.Authority = ''
+                                    this.$validator.reset();
+                                })
+                        }
+                        else {
+                            console.log('錯誤')
+                        }
+                        })
+                },
+                EditUserModal(index) {
+                    this.userModal = this.userdataArray[index]
+                    console.log(this.userModal)
+                    $('#EditAccountModal').modal('show')
+                },
+                UpdateUserInfo() {
+                    axios.put(`/api/LoginApi/UpdateUserInfo?AdminId=${this.userModal.adminId}`, this.userModal)
+                        .then(res => {
+                            if (res.data.result) {
+                                this.$toasted.show("更新成功！！", {
+                                    theme: "outline",
+                                    position: "top-center",
+                                    duration: 1000
+                                });
+                                this.GetUserData();
+                                $('#EditAccountModal').modal('hide')
+                            }
+                            else {
+                                this.$toasted.show(`更新失敗 + ${res.data.ErrMsg}`, {
+                                    theme: "outline",
+                                    position: "top-center",
+                                    duration: 1000
+                                });
+                            }
+                        })
+                },
+                StopAccountModal(index) {
+                    this.userModal = this.userdataArray[index]
+                    $('#StopAccountModal').modal('show')
+                },
+                StopAccount() {
+                    axios.put(`/api/LoginApi/UpdateUserDeactivated?adminId=${this.userModal.adminId}&deactivatedNumber=1`)
+                        .then(res => {
+                            if (res.data.result) {
+                                this.$toasted.show("帳號已停用", {
+                                    theme: "outline",
+                                    position: "top-center",
+                                    duration: 1000
+                                });
+                                this.GetUserData();
+                                $('#StopAccountModal').modal('hide')
+                            }
+                            else {
+                                this.$toasted.show(`更新失敗 + ${res.data.ErrMsg}`, {
+                                    theme: "outline",
+                                    position: "top-center",
+                                    duration: 1000
+                                });
+                            }
+                        })
+                },
+                EnableAccount(index) {
+                    this.userModal = this.userdataArray[index];
+                    axios.put(`/api/LoginApi/UpdateUserDeactivated?adminId=${this.userModal.adminId}&deactivatedNumber=0`)
+                        .then(res => {
+                            if (res.data.result) {
+                                this.$toasted.show("帳號已開啟", {
+                                    theme: "outline",
+                                    position: "top-center",
+                                    duration: 1000
+                                });
+                                this.GetUserData();
+                                $('#StopAccountModal').modal('hide')
+                            }
+                            else {
+                                this.$toasted.show(`更新失敗 + ${res.data.ErrMsg}`, {
+                                    theme: "outline",
+                                    position: "top-center",
+                                    duration: 1000
+                                });
+                            }
+                        })
                 }
+
             },
             created() {
                 this.GetUserData();
+
             }
         })
     </script>
