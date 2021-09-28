@@ -121,7 +121,7 @@ namespace Background_ProFinder.Controllers
 
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Dashboard", "Home");
         }
 
         [Authorize]
