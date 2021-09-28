@@ -501,3 +501,4 @@ C:\Users\ac556\source\repos\BackgroundSystem\Background_ProFinder\obj\Debug\net5
 C:\Users\ac556\source\repos\BackgroundSystem\Background_ProFinder\obj\Debug\net5.0\Razor\Views\Home\Homepage.cshtml.g.cs
 C:\Users\ac556\source\repos\BackgroundSystem\Background_ProFinder\obj\Debug\net5.0\Razor\Views\Home\OrderManagement.cshtml.g.cs
 C:\Users\ac556\source\repos\BackgroundSystem\Background_ProFinder\obj\Debug\net5.0\Razor\Views\Login\ResetPassword.cshtml.g.cs
+C:\Users\User\Desktop\BackgroundSystem_Profinder\Background_ProFinder\obj\Debug\net5.0\Razor\Views\Login\ResetPassword.cshtml.g.cs
