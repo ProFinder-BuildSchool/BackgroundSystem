@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ac556\\source\\repos\\BackgroundSystem\\Background_ProFinder\\Background_ProFinder.csproj": {}
+    "C:\\Users\\User\\Desktop\\BackgroundSystem_Profinder\\Background_ProFinder\\Background_ProFinder.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ac556\\source\\repos\\BackgroundSystem\\Background_ProFinder\\Background_ProFinder.csproj": {
+    "C:\\Users\\User\\Desktop\\BackgroundSystem_Profinder\\Background_ProFinder\\Background_ProFinder.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ac556\\source\\repos\\BackgroundSystem\\Background_ProFinder\\Background_ProFinder.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\BackgroundSystem_Profinder\\Background_ProFinder\\Background_ProFinder.csproj",
         "projectName": "Background_ProFinder",
-        "projectPath": "C:\\Users\\ac556\\source\\repos\\BackgroundSystem\\Background_ProFinder\\Background_ProFinder.csproj",
-        "packagesPath": "C:\\Users\\ac556\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ac556\\source\\repos\\BackgroundSystem\\Background_ProFinder\\obj\\",
+        "projectPath": "C:\\Users\\User\\Desktop\\BackgroundSystem_Profinder\\Background_ProFinder\\Background_ProFinder.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\BackgroundSystem_Profinder\\Background_ProFinder\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\ac556\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -107,7 +109,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }
