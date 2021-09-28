@@ -115,6 +115,17 @@ namespace Background_ProFinder.Controllers
 
         public IActionResult MemManagement()
         {
+            ClaimsPrincipal principal = HttpContext.User;
+            if (null != principal)
+            {
+                foreach (Claim claim in principal.Claims)
+                {
+                    if (claim.Type == ClaimTypes.Role)
+                    {
+                        ViewData["Role"] = claim.Value;
+                    }
+                }
+            }
             return View();
         }
 
