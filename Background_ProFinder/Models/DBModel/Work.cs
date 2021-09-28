@@ -24,6 +24,7 @@ namespace Background_ProFinder.Models.DBModel
         public int? WorkAttachmentId { get; set; }
         public int? MemberId { get; set; }
         public int? Featured { get; set; }
+        public string Memo { get; set; }
 
         public virtual SubCategory SubCategory { get; set; }
         public virtual WorkAttachment WorkAttachment { get; set; }
