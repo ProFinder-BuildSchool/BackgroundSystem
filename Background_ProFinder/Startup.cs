@@ -44,13 +44,13 @@ namespace Background_ProFinder
             services.AddDbContext<ThirdGroupContext>();
 
             services.AddDbContext<ThirdGroupContext>();
-
+            services.AddScoped<LoginService>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
                     //options.AccessDeniedPath = "Login/AccessDeny";
-                    options.LoginPath = "/Login/Login";
+                    options.LoginPath = new PathString("/Login/Login");
                 });
             //ª`¤JRepositories
             services.AddTransient<IOrderRepository, OrderRepository>();
