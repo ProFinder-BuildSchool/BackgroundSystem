@@ -13,5 +13,7 @@ namespace Background_ProFinder.Repositories
         void Update<T>(T entity) where T : class;
         void Delete<T>(T entity) where T : class;
         IQueryable<T> GetAll<T>() where T : class;
+
+        void SaveChanges();
     }
 }
