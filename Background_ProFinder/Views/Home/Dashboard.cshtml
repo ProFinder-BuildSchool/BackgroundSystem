@@ -2,24 +2,18 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
     參考集資車車 https://raisebububack.azurewebsites.net/Dashboard/Index   帳號:admin@gmail.com；密碼:admin
+    COVID-19 https://ithelp.ithome.com.tw/articles/10252146 
 *@
 @{
 }
-<div class="container-fluid">
-
- 
-
+<div class="container-fluid" id="app">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
-        </a>
-    </div>
+        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1></div>
 
     <!-- Content Row -->
-    <div class="row">
-
+    <div class="row" >
+      
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
@@ -29,7 +23,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 使用者總數
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">30人</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{MemberCount}}人</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-person-booth fa-2x text-gray-300"></i>
@@ -48,7 +42,7 @@
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 產品總數
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">150項</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{QuotationCount}}項</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -69,15 +63,8 @@
                             </div>
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">18件</div>
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{OrderCount}}件</div>
                                 </div>
-                                @*<div class="col">
-                                    <div class="progress progress-sm mr-2">
-                                        <div class="progress-bar bg-info" role="progressbar"
-                                             style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                             aria-valuemax="100"></div>
-                                    </div>
-                                </div>*@
                             </div>
                         </div>
                         <div class="col-auto">
@@ -97,7 +84,7 @@
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 銷售總額
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">NT$24,900</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">NT${{OrderRevenue}}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -109,69 +96,24 @@
     </div>
 
 
-
-
-    <!-- Earnings (Monthly) Card Example -->
-    @*<div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                Tasks
-                            </div>
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                </div>
-                                <div class="col">
-                                    <div class="progress progress-sm mr-2">
-                                        <div class="progress-bar bg-info" role="progressbar"
-                                             style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                             aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>*@
-
-
-
     <!-- Content Row -->
 
-    <div class="row">
-        @*近十日和月份 兩者 產品上架件數折線圖 統計圖表*@
+    <div class="row" >
+        
+        @*近五日產品上架件數折線圖 統計圖表*@
         <!-- Area Chart -->
         <div class="col-xl-8 col-lg-7">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">產品上架件數折線圖</h6>
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                             aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Dropdown Header:</div>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </div>
+                    <h6 class="m-0 font-weight-bold text-primary">近五日商品上架件數折線圖</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="myAreaChart"></canvas>
+                    @*<div class="chart-area">*@
+                    <div class="barchart pt-6 pb-8">
+                        @*<canvas id="myAreaChart"></canvas>*@
+                        <bar-chart :height="200" :tick="{min: 0, max: 5}"></bar-chart>
                     </div>
                 </div>
             </div>
@@ -179,41 +121,28 @@
 
         <!-- Pie Chart -->
         <div class="col-xl-4 col-lg-5">
-            @*前五大項商品銷售比例 統計圖表*@
+            @*前五大項商品比例 統計圖表*@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">前五大項商品銷售比例圓餅圖</h6>
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                             aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Dropdown Header:</div><a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </div>
+                    <h6 class="m-0 font-weight-bold text-primary">前三大項商品比例圓餅圖</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <div class="chart-pie pt-4 pb-2">
-                        <canvas id="myPieChart"></canvas>
+
+                    <div class="app pt-4 pb-2" id="piechar">
+                        <pie-chart></pie-chart>
                     </div>
-                    <div class="mt-4 text-center small">
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-primary"></i> Direct
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-success"></i> Social
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-info"></i> Referral
-                        </span>
-                    </div>
+
+                    @*<div class="chart pt-4 pb-2" id="piechart">*@
+                    @*<div id="chart" class="pt-4 pb-2">
+                        <apexchart type="donut" :options="chartOptions" :series="series"></apexchart>
+                    </div>*@
+                    @*<div id="chart pt-4 pb-2">
+                        <apexchart type="pie" width="380" :options="chartOptions" :series="series"></apexchart>
+                    </div>*@
+                    @*</div>*@
+
                 </div>
             </div>
         </div>
@@ -222,7 +151,224 @@
 
 @section endJS{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-apexcharts"></script>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+
+
+
+
     <script>
+        var app = new Vue({
+            el: "#app",
+            data() {
+                return {
+                 
+                    MemberCount: 0,
+                    OrderCount: 0,
+                    QuotationCount: 0,
+                    OrderRevenue: 0,
+                    //Piechartname: [],
+                    //Piechartcnt: []
+                }
+            },
+            created: function () {
+                axios({ method: "Get", url: "/api/Dashboard" }).then(res => {
+                    this.MemberCount = JSON.parse(res.data.result).MemberCount;
+                    this.QuotationCount = JSON.parse(res.data.result).QuotationCount;
+                    this.OrderCount = JSON.parse(res.data.result).OrderCount;
+                    this.OrderRevenue = JSON.parse(res.data.result).OrderRevenue;
+                    //this.Piechartname.push(...JSON.parse(res.data.result).PieChartName);
+                    //this.Piechartcnt.push(...JSON.parse(res.data.result).PieChartCnt);
+                    console.log(JSON.parse(res.data.result));
+                });
+            },
+
+        })
+
+    </script>
+
+    @*Vue折線圖*@
+<script>
+    Vue.component('bar-chart', {
+        extends: VueChartJs.Bar,
+        //props:  ["parentmsg"],
+        data()//: function ()
+        {
+            return {
+                datacollection: {
+                
+                    labels:[],
+                    datasets: [
+                        {
+                            label: '上架件數',
+                            backgroundColor: '#f87979',
+                            data: []
+                        }
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        display: true,
+                        position: 'top',
+                    },
+
+                    scales: {
+                        //xAxes: [{
+                        //    gridLines: {
+                        //        display: true
+                        //    }
+                        //}],
+                        yAxes: [{
+                            gridLines: {
+                                display: true
+                            },
+                            ticks: {
+                                min: 0,
+                                max: 5,
+                                stepSize: 1,
+                                //min: this.tick.min,
+                                //max: this.tick.max,
+                            }
+                        }]
+                    }
+                },
+            }
+        },
+     
+        mounted() {
+            // this.chartData is created in the mixin
+            this.renderChart(this.datacollection, this.options)
+            axios({ method: "Get", url: "/api/Dashboard" }).then(res => {
+                this.datacollection.labels = JSON.parse(res.data.result).LaunchDay;
+                this.datacollection.datasets[0].data = JSON.parse(res.data.result).LaunchCnt;
+            });
+        },
+       
+    })
+
+    var vm = new Vue({
+        el: '.barchart',
+    })
+</script>
+
+    @*<script>
+        Vue.component('line-chart', {
+            extends: VueChartJs.Line,
+            mounted() {
+                this.renderChart({
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                    datasets: [
+                        {
+                            label: 'Data One',
+                            backgroundColor: '#f87979',
+                            data: [40, 39, 10, 40, 39, 80, 40]
+                        }
+                    ]
+                }, { responsive: true, maintainAspectRatio: false })
+            }
+        })
+    </script>*@
+
+    @*Vue圓餅圖*@
+    <script>
+        Vue.component('pie-chart', {
+            extends: VueChartJs.Pie,
+            //props:  ["parentmsg"],
+            data()//: function ()
+            {
+                return {
+                 
+                    datacollection: {
+                        //labels: this.parentmsg,
+                        labels: ['Pie 1', 'Pie 2', 'Pie 3'],
+                        datasets: [
+                            {
+                                backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+                                data: [1, 2, 3]
+                            },
+                        ],
+                    },
+                    options: {
+                        responsive: true,
+                        legend: {
+                            display: true,
+                            position: 'right',
+                        },
+                    },
+                }
+            },
+           
+            mounted() {
+                // this.chartData is created in the mixin
+                this.renderChart(this.datacollection, this.options)
+                axios({ method: "Get", url: "/api/Dashboard" }).then(res => {
+                    this.datacollection.labels = JSON.parse(res.data.result).PieChartName;
+                    this.datacollection.datasets[0].data = JSON.parse(res.data.result).PieChartCnt;
+                    //for (let i = 0; i < response.data.length; i++) {
+                    //    this.datacollection.labels.push(response.data[i].value);
+                    //    this.datacollection.datasets.data.push(response.data[i].key);
+                    //}
+                    //this.items.push(...JSON.parse(res.data.result));
+                    //this.allitems = this.items;
+                    //console.log(this.items);
+                    //this.datacollection.labels = ['Pie 4', 'Pie 6', 'Pie 7'];
+                    //this.data.datacollection.datasets[0].data = JSON.parse(res.data.result).PieChartCnt;
+                });
+
+            }
+        })
+
+        var vm = new Vue({
+            el: '.app',
+        })
+    </script>
+
+
+    @*<script>
+            var options = {
+                series: [44, 55, 41, 17, 15],
+                chart: {
+                    type: 'donut',
+                },
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+
+            var chart = new ApexCharts(document.querySelector("#chart"), options);
+            chart.render();
+
+        </script>*@
+
+
+
+
+
+
+
+
+
+
+
+    @*折線圖*@
+    @*<script>
 
         $(document).ready(function () {
             // Set new default font family and font color to mimic Bootstrap's default styling
@@ -345,7 +491,49 @@
             });
         })
 
-    </script>
+    </script>*@
+
+
+    @*圓餅圖*@
+    @*<script>
+            // Set new default font family and font color to mimic Bootstrap's default styling
+            Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+            Chart.defaults.global.defaultFontColor = '#858796';
+
+            // Pie Chart Example
+            var ctx = document.getElementById("myPieChart");
+            var myPieChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ["Direct", "Referral", "Social"],
+                    datasets: [{
+                        data: [5, 6, 5],
+                        backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+                        hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+                        hoverBorderColor: "rgba(234, 236, 244, 1)",
+                    }],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        caretPadding: 10,
+                    },
+                    legend: {
+                        display: false
+                    },
+                    cutoutPercentage: 80,
+                },
+            });
+
+
+        </script>*@
 
 
 
