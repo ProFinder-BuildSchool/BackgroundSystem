@@ -26,15 +26,13 @@ namespace Background_ProFinder.Service
         {
 
                 _bannerRepo.GetAll<Banner>().FirstOrDefault(x => x.BannerId == data.BannerId).BannerImgUrl = data.BannerImgUrl;
-                _bannerRepo.GetAll<Banner>().FirstOrDefault(x => x.BannerId == data.BannerId).BannerTitle = data.BannerTitle;
-                //_bannerRepo.SaveChanges();            
+                _bannerRepo.GetAll<Banner>().FirstOrDefault(x => x.BannerId == data.BannerId).BannerTitle = data.BannerTitle;           
         }
 
         public void AddFeatureWorkMomo(WorkViewModel FeatureWorkList)
         {
             var temp = _workRepo.GetAll<Work>().FirstOrDefault(x => x.WorkId == FeatureWorkList.WorkID);
             temp.Memo = FeatureWorkList.Memo;
-            //_workRepo.SaveChanges();
         }
 
         public void SetFeatureWorkList(WorkViewModel FeatureWorkList)
@@ -49,7 +47,6 @@ namespace Background_ProFinder.Service
             {
                 temp.Featured = 0;
             }
-            //_workRepo.SaveChanges();
         }
 
         public List<BannerViewModel> GetBannerData()

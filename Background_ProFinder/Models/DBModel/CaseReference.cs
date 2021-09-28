@@ -7,7 +7,8 @@ namespace Background_ProFinder.Models.DBModel
 {
     public partial class CaseReference
     {
-        public int CaseId { get; set; }
-        public string CaseRefImg { get; set; }
+        public int CaseRefId { get; set; }
+        public string CaseRef { get; set; }
+        public int? CaseId { get; set; }
     }
 }
