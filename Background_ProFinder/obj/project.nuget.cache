@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "8CzU1PcL1haGdGuA3nRlPaJU4vETPN7ftU0z5epZrWSH6WezD+3Z9/LV6wTJ4c2vxHD8La4FK/p53enOCkhKBQ==",
+  "dgSpecHash": "DENipLMItQvA1qD1Myr9RFqj4kEXIgeR/3f1aovPP9hXl+VsoozJ1+g0tOBtv2+VUa6VrKbLsoZr/pg1VEDpbQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\ac556\\source\\repos\\BackgroundSystem\\Background_ProFinder\\Background_ProFinder.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ac556\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\ac556\\.nuget\\packages\\jquery\\1.6.3\\jquery.1.6.3.nupkg.sha512",
     "C:\\Users\\ac556\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
     "C:\\Users\\ac556\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\ac556\\.nuget\\packages\\microsoft.aspnetcore.authentication.cookies\\2.2.0\\microsoft.aspnetcore.authentication.cookies.2.2.0.nupkg.sha512",
@@ -156,7 +157,8 @@
     "C:\\Users\\ac556\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\ac556\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\ac556\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\ac556\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    "C:\\Users\\ac556\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\ac556\\.nuget\\packages\\toastr\\2.1.1\\toastr.2.1.1.nupkg.sha512"
   ],
   "logs": []
 }
