@@ -3,7 +3,7 @@
     ViewData["Title"] = "Homepage";
 }
 <div class="p-2">
-    <h3 class="border-bottom">設定banner投放</h3>
+    <h3 class="border-bottom">設定banner投放 <span class=" h6 text-warning">※首頁圖片點擊即可更換擊上傳Banner</span></h3>
 
 
     <div class="fileArea">
@@ -29,7 +29,7 @@
 
 
     <div id="app" class="mt-3">
-        <h3 class="border-bottom">設定精選作品</h3>
+        <h3 class="border-bottom">設定精選作品 <span class=" h6 text-warning">※作品照片達3張以上，即可設定為精選作品</span></h3>
         <table id="myTable" class="cell-border  compact  stripe" style="width:100%">
             <thead>
                 <tr>
@@ -62,7 +62,7 @@
                     <td>
                         <label for="memo">備註:<br />{{item.memo}}</label>
                         <input type="text" v-if="item.featured==0" disabled id="memo" value="" v-model="item.memo" />
-                        <input type="text" v-if="item.featured==1"  id="memo" value="" v-model="item.memo"  @@change="addFeatureWorkMomo(index)"/>
+                        <input type="text" v-if="item.featured==1" id="memo" value="" v-model="item.memo" @@change="addFeatureWorkMomo(index)" />
                     </td>
                     <td>
                         <span class="count">{{ item.studio }}</span>
@@ -120,7 +120,7 @@
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/vue-toastr/dist/vue-toastr.umd.min.js"></script>
     <script>
-        
+
 
 
         let app = new Vue({
@@ -133,18 +133,20 @@
                 GetworkList() {
                     axios.get('/api/HomepageAPI/GetWorkList').then(res => {
                         console.log(res.data)
-                        
+
                         this.WorkList = res.data.result
-                        this.comfirmFeatureWorks() 
+                        this.comfirmFeatureWorks()
                     })
                 },
                 addFeatureWorkMomo(index) {
-                    //axios.put('/api/HomepageAPI/addFeatureWorkMomo',
-                    //    {
-                    //        WorkID: this.WorkList[index].workID,
-                    //        Memo: this.WorkList[index].memo,
-                    //        Featured: this.WorkList[index].featured
-                    //    })
+                    axios.put('/api/HomepageAPI/addFeatureWorkMomo',
+                        {
+                            WorkID: this.WorkList[index].workID,
+                            Memo: this.WorkList[index].memo,
+                        }).then(res => {
+                            this.GetworkList();
+                            this.comfirmFeatureWorks()
+                        })
                 },
                 setFeatureWork(index) {
 
@@ -154,10 +156,9 @@
                             Memo: this.WorkList[index].memo,
                             Featured: this.WorkList[index].featured
                         }
-                    ).then(res =>
-                    {
+                    ).then(res => {
                         this.GetworkList();
-                        this.comfirmFeatureWorks() 
+                        this.comfirmFeatureWorks()
 
                     })
                 },
@@ -176,7 +177,7 @@
                             name: "myInfo",
                             title: "已勾選3筆資料",
                             msg: "精選動態最多只能設定3筆!!",
-                            clickClose: false, //Disable click to close 
+                            clickClose: false, //Disable click to close
                             timeout: 1500,
                             position: "toast-top-center",
                             type: "warning", //error, warning, success, info
@@ -186,7 +187,8 @@
                         document.querySelectorAll('.checkbox').forEach(function (item) {
                             if (item.checked) {
 
-                            } else {
+                            }
+                            else {
                                 item.disabled = true;
                             }
 
@@ -196,12 +198,16 @@
             },
             created() {
                 this.GetworkList();
+                $('#myTable').DataTable({
+                /* "info": false, "bLengthChange": false,*/ "pageLength": 5,
+                })
             }
 
         })
-        
 
-       
+
+
+
 
 
 
@@ -215,14 +221,9 @@
         let imgtest = document.querySelectorAll('.imgtest');
         let fileupload = document.querySelectorAll('.file-upload');
 
-        $(document).ready(function () {
-            GetBannerData();
-            $('#myTable').DataTable({
-         "info": false, "bLengthChange": false, "pageLength": 5
-       })
-        })
-        
-       
+
+
+
         fileupload.forEach(function (item, index) {
             item.addEventListener('change', function (event) {
 
@@ -270,7 +271,10 @@
             })
         }
 
+        window.onload = function () {
+            GetBannerData();
 
+        }
 
 
 
