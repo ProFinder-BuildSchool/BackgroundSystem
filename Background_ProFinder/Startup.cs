@@ -1,5 +1,9 @@
 using Background_ProFinder.Data;
 using Background_ProFinder.Models.DBModel;
+using Background_ProFinder.Repositories;
+using Background_ProFinder.Repositories.Interfaces;
+using Background_ProFinder.Service;
+using Background_ProFinder.Service.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -14,7 +18,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Background_ProFinder.Service;
 using Microsoft.AspNetCore.Http;
 
 namespace Background_ProFinder
@@ -35,23 +38,32 @@ namespace Background_ProFinder
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-            
-
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+            services.AddDbContext<ThirdGroupContext>();
 
             services.AddDbContext<ThirdGroupContext>();
-            services.AddScoped<LoginService>();
+
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
                     //options.AccessDeniedPath = "Login/AccessDeny";
-                    options.LoginPath = new PathString("/Login/Login");
+                    options.LoginPath = "/Login/Login";
                 });
-        }
+            //ª`¤JRepositories
+            services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IQuotationRepository, QuotationRepository>();
+            services.AddTransient<IMemberRepository, MemberRepository>();
+            services.AddTransient<IBackAccountRepository, BackAccountRepository>();
 
+
+            //ª`¤JServices
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<ILoginService, LoginService>();
+        }
+        ///
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

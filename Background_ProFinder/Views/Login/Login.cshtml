@@ -12,21 +12,24 @@
 
     <h4 class="text-center">PRO FINDER BackAccount</h4>
     <hr />
-    <div class="row">
+    <div class="row" id="login">
         <div class="col-md-4 formdiv mx-auto py-2">
             <form asp-action="Login">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                 <div class="form-group">
                     <label asp-for="AccountName" class="control-label"></label>
-                    <input asp-for="AccountName" class="form-control" id="userAccount"/>
-                    <span asp-validation-for="AccountName" class="text-danger accountspan"></span>
+                    <input asp-for="AccountName" class="form-control accountinput" id="userAccount" />
+                    <span asp-validation-for="AccountName" class=""></span>
+                    <span class="text-danger accountspan"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="Password" class="control-label"></label>
-                    <input asp-for="Password" class="form-control" type="password" id="userePassword"/>
-                    <span asp-validation-for="Password" class="text-danger Passwordspan"></span>
+                    <a class="ml-2 showpsw"><i class="far fa-eye eyesicon"></i></a>
+                    <input type="password" class="form-control pswinput" id="userePassword"  asp-for="Password"/>
+                    <span asp-validation-for="Password" class=""></span>
+                    <span class="text-danger Passwordspan"></span>
                 </div>
 
                 @if (ViewData["ErrorMessage"] != null)
@@ -35,7 +38,7 @@
                 }
 
                 <div class="form-group d-flex justify-content-center mt-2">
-                    <input type="submit" value="登入" class="btn btn-primary w-50 mx-auto" />
+                    <input type="submit" value="登入" class="btn btn-primary w-50 mx-auto loginbtn" disabled />
                 </div>
             </form>
         </div>
@@ -56,59 +59,71 @@
 
 @section endJS{ 
 <script>
+    let isShowPsw = false;
+    let pswCheck;
+    let accountCheck;
+    let pswInput = document.querySelector('.pswinput');
+    let eyesicon = document.querySelector('.eyesicon');
+    let accountinput = document.querySelector('.accountinput');
+    let accountspan = document.querySelector('.accountspan');
+    let passwordspan = document.querySelector('.Passwordspan');
+    let loginbtn = document.querySelector('.loginbtn');
 
-    function AccountValidation() {
-        let AccountReg = /^[a-zA-Z]\w*$/;
-        let userAccountInput = document.getElementById("userAccount").value;
-        let accountspan = document.querySelector('.accountspan');
-
-        if (userAccountInput == '') {
-            accountspan.innerText = '帳號欄位不得留空';
-            return false;
-        }
-        if (!AccountReg.test(userAccountInput)) {
-            accountspan.innerText = '帳號欄位格式錯誤(僅可填寫英文及數字，第一個字不為數字)'
-            return false;
-
-        } else {
-            accountspan.innerText = ''
-            return true;
-        }
-    }
-
-    function PasswordValidation() {
-        let PasswordReg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-        let PasswordInput = document.getElementById("userePassword").value;
-        let PasswordSpan = document.querySelector('.Passwordspan');
-
-        if (PasswordInput == '') {
-            PasswordSpan.innerText = '密碼欄位不得留空';
-            return false;
-        }
-        if (!PasswordReg.test(PasswordInput)) {
-            PasswordSpan.innerText = '密碼欄位格式錯誤(密碼需包含至少各1個英文大小寫及數字，並大於等於8個字符，不包含特殊字符)'
-            return false;
-
-        } else {
-            PasswordSpan.innerText = ''
-            return true;
-        }
-    }
-
-    function validateAll() {
-        let account = AccountValidation();
-        let password = PasswordValidation();
-        console.log(account)
-        console.log(password)
-        if (account && password) {
-            console.log('true')
-            return true;
+    //CheckAccountInput
+    accountinput.addEventListener('change', function () {
+        let accountvalue = accountinput.value
+        if (accountvalue == '') {
+            accountspan.innerText = '帳號欄位不得空白';
+            accountCheck = false;
         }
         else {
-            console.log('false')
-            return false;
+            accountspan.innerText = '';
+            accountCheck = true;
+        }
+        console.log(accountvalue)
+        console.log(accountCheck)
+        CheckInput();
+    })
+
+    //CheckAllInput
+    function CheckInput() {
+        if (pswCheck && accountCheck) {
+            loginbtn.disabled = false;
+        }
+        else {
+            loginbtn.disabled = true;
         }
     }
+
+    //CheckPasswordInput
+    pswInput.addEventListener('change', function () {
+        let pswvalue = pswInput.value
+        if (pswvalue == '') {
+            passwordspan.innerText = '密碼欄位不得空白';
+            pswCheck = false;
+        }
+        else {
+            passwordspan.innerText = ''
+            pswCheck = true;
+        }
+        console.log(pswvalue)
+        console.log(pswCheck)
+        CheckInput();
+    })
+
+    //ShowPassword & Eyesicon change
+    document.querySelector('.showpsw').addEventListener('click', function () {
+        isShowPsw = !isShowPsw;
+        if (isShowPsw) {
+            pswInput.type = 'text'
+            eyesicon.classList.replace('fa-eye-slash', 'fa-eye')
+        }
+        else {
+            pswInput.type = 'password'
+            eyesicon.classList.replace('fa-eye', 'fa-eye-slash')
+        }
+    })
+
 </script>
 }
 
