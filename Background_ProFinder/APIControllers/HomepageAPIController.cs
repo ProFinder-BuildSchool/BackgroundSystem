@@ -99,30 +99,7 @@ namespace Background_ProFinder.APIControllers
         {
             try
             {
-                var result = (from W in _ctx.Works
-                              join S in _ctx.SubCategories on W.SubCategoryId equals S.SubCategoryId
-                              join workpic in _ctx.WorkPictures on W.WorkId equals workpic.WorkId
-                             
-                              select new
-                              {
-                                  WorkID = W.WorkId,
-                                  Picture = workpic.WorkPicture1,
-                                  SubCategoryName = S.SubCategoryName,
-                                  studio = W.Client,
-                                  MemberID = W.MemberId,
-                                  Featured = W.Featured
-                                
-                              }).ToList()
-                              .GroupBy(x =>x.WorkID)
-                              .Select(x=> new WorkViewModel
-                              {
-                                  WorkID = x.First().WorkID,
-                                  WorkPicture = x.Select(p => p.Picture).ToList(),
-                                  SubCategoryName = x.First().SubCategoryName,
-                                  studio = x.First().studio,
-                                  MemberID = (int)x.First().MemberID,
-                                  Featured = (int)x.First().Featured
-                              }).Where(x=>x.WorkPicture.Count()>=3).OrderBy(x => x.WorkID).ToList();
+
 
 
                 return new APIResult(APIStatus.Success, string.Empty, _homePageService.GetWorkList());
@@ -153,8 +130,5 @@ namespace Background_ProFinder.APIControllers
             public const int Fail = 1;
             public const int DataBaseBreak = 101;
         }
-
-        
-
     }
 }
