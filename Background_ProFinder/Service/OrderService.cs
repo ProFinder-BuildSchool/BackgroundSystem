@@ -34,7 +34,7 @@ namespace Background_ProFinder.Service
 
             var allOrders = _orderRepo.GetAll<Order>().ToList();
             List<OrderManagementViewModel> orderDetails = new List<OrderManagementViewModel>();
-            foreach (var o in allOrders)
+            foreach (var o in allOrders) 
             {
                 //Quotation可能null資料 - PredictDays
                 var quotation = o.QuotationId != null ? _quotationRepo.GetAll<Quotation>().FirstOrDefault(x => x.QuotationId == o.QuotationId) : null;

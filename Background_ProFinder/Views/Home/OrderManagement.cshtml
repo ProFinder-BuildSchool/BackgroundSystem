@@ -16,7 +16,7 @@
             <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" align="right"></b-pagination>
             <div class="d-flex flex-row align-content-center">
                 <input type="text" placeholder="搜尋關鍵字" class="form-control mr-2" v-model="keyword" />
-                <b-form-select v-model="selected" :options="options"></b-form-select>
+                <b-form-select v-model="selected" :options= "options"></b-form-select>
             </div>
 
         </div>

@@ -12,7 +12,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Background_ProFinder.Models.DBModel;
 using Background_ProFinder.Models.ViewModel;
-
+using Background_ProFinder.Repositories;
+using Background_ProFinder.Service;
 
 namespace Background_ProFinder.Controllers
 {
@@ -20,6 +21,7 @@ namespace Background_ProFinder.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ThirdGroupContext _ctx;
+     
 
         public HomeController(ILogger<HomeController> logger,ThirdGroupContext context)
         {
@@ -30,6 +32,17 @@ namespace Background_ProFinder.Controllers
         [Authorize]
         public IActionResult Index()
         {
+            ClaimsPrincipal principal = HttpContext.User;
+            if (null != principal)
+            {
+                foreach (Claim claim in principal.Claims)
+                {
+                    if (claim.Type == ClaimTypes.Role)
+                    {
+                        ViewData["Role"] = claim.Value;
+                    }
+                }
+            }
             return View();
         }
 
@@ -48,26 +61,89 @@ namespace Background_ProFinder.Controllers
         {
             return View();
         }
+
+        [Authorize]
         public IActionResult HomePage()
         {
+            ClaimsPrincipal principal = HttpContext.User;
+            if (null != principal)
+            {
+                foreach (Claim claim in principal.Claims)
+                {
+                    if (claim.Type == ClaimTypes.Role)
+                    {
+                        ViewData["Role"] = claim.Value;
+                    }
+                }
+            }
             return View();
         }
 
-
+        [Authorize]
         public IActionResult AdminiAccountManagement()
         {
+            ClaimsPrincipal principal = HttpContext.User;
+            if (null != principal)
+            {
+                foreach (Claim claim in principal.Claims)
+                {
+                    if (claim.Type == ClaimTypes.Role)
+                    {
+                        ViewData["Role"] = claim.Value;
+                    }
+                }
+            }
             return View();
         }
 
-
+        [Authorize]
         public IActionResult OrderManagement()
         {
+            ClaimsPrincipal principal = HttpContext.User;
+            if (null != principal)
+            {
+                foreach (Claim claim in principal.Claims)
+                {
+                    if (claim.Type == ClaimTypes.Role)
+                    {
+                        ViewData["Role"] = claim.Value;
+                    }
+                }
+            }
+            return View();
+        }
+
+        public IActionResult MemManagement()
+        {
+            ClaimsPrincipal principal = HttpContext.User;
+            if (null != principal)
+            {
+                foreach (Claim claim in principal.Claims)
+                {
+                    if (claim.Type == ClaimTypes.Role)
+                    {
+                        ViewData["Role"] = claim.Value;
+                    }
+                }
+            }
             return View();
         }
 
         public IActionResult Dashboard()
         {
+            ClaimsPrincipal principal = HttpContext.User;
+            if (null != principal)
+            {
+                foreach (Claim claim in principal.Claims)
+                {
+                    if (claim.Type == ClaimTypes.Role)
+                    {
+                        ViewData["Role"] = claim.Value;
+                    }
+                }
+            }
             return View();
         }
+     
     }
 }
