@@ -72,9 +72,6 @@ namespace Background_ProFinder.Controllers
            
             return View();
         }
-        public IActionResult DashboardTEST()
-        {
-            return View();
-        }
+     
     }
 }

@@ -33,7 +33,7 @@ namespace Background_ProFinder.Service
 
                 sum += (int)o.Price * (int)o.Count;
             }
-            dashboardDetails.OrderRevenue = sum;
+            dashboardDetails.OrderRevenue = sum.ToString("N0");
             var subcategorysummary = (from q in allQuotations
                                       join s in allSubcategory on q.SubCategoryId equals s.SubCategoryId
                                       //group q by q.SubCategoryId
@@ -81,7 +81,7 @@ namespace Background_ProFinder.Service
                                where DateTime.Equals(q.UpdateDate.Date, last4day.Date)
                                select q.UpdateDate).Count();
             int[] launchcnt = { todaycnt, last1daycnt, last2daycnt, last3daycnt, last4daycnt };
-            string[] launchday = { today.ToShortDateString(), last1day.ToShortDateString(), last2day.ToShortDateString(), last3day.ToShortDateString(), last4day.ToShortDateString() };
+            string[] launchday = { last4day.ToShortDateString(), last3day.ToShortDateString(), last2day.ToShortDateString(), last1day.ToShortDateString(), today.ToShortDateString()};
             dashboardDetails.LaunchCnt = launchcnt;
             dashboardDetails.LaunchDay = launchday;
             return JsonConvert.SerializeObject(dashboardDetails);

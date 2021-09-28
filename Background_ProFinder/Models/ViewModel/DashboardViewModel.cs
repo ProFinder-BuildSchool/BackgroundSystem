@@ -10,7 +10,7 @@ namespace Background_ProFinder.Models.ViewModel
         public int MemberCount {get;set;}
         public int QuotationCount { get; set; }
         public int OrderCount { get; set; }
-        public int OrderRevenue{ get; set; }
+        public string OrderRevenue{ get; set; }
 
         public IEnumerable<string> PieChartName { get; set; }
         public IEnumerable<int> PieChartCnt { get; set; }
