@@ -9,17 +9,19 @@ using Background_ProFinder.Models.ViewModel;
 
 namespace Background_ProFinder.APIControllers
 {
-   
+
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class HomepageAPIController : ControllerBase
     {
+
 
         public readonly ThirdGroupContext _ctx;
 
         public HomepageAPIController(ThirdGroupContext ctx)
         {
             _ctx = ctx;
+
         }
 
         [HttpPut]
@@ -157,7 +159,7 @@ namespace Background_ProFinder.APIControllers
                 var result = (from W in _ctx.Works
                               join S in _ctx.SubCategories on W.SubCategoryId equals S.SubCategoryId
                               join workpic in _ctx.WorkPictures on W.WorkId equals workpic.WorkId
-                             
+
                               select new
                               {
                                   WorkID = W.WorkId,
@@ -166,10 +168,10 @@ namespace Background_ProFinder.APIControllers
                                   studio = W.Client,
                                   MemberID = W.MemberId,
                                   Featured = W.Featured
-                                
+
                               }).ToList()
-                              .GroupBy(x =>x.WorkID)
-                              .Select(x=> new WorkViewModel
+                              .GroupBy(x => x.WorkID)
+                              .Select(x => new WorkViewModel
                               {
                                   WorkID = x.First().WorkID,
                                   WorkPicture = x.Select(p => p.Picture).ToList(),
@@ -177,7 +179,7 @@ namespace Background_ProFinder.APIControllers
                                   studio = x.First().studio,
                                   MemberID = (int)x.First().MemberID,
                                   Featured = (int)x.First().Featured
-                              }).Where(x=>x.WorkPicture.Count()>=3).OrderBy(x => x.WorkID).ToList();
+                              }).Where(x => x.WorkPicture.Count() >= 3).OrderBy(x => x.WorkID).ToList();
 
 
                 return new APIResult(APIStatus.Success, string.Empty, result);
@@ -208,5 +210,8 @@ namespace Background_ProFinder.APIControllers
             public const int Fail = 1;
             public const int DataBaseBreak = 101;
         }
+
+        
+
     }
 }

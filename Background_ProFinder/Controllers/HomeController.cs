@@ -67,6 +67,11 @@ namespace Background_ProFinder.Controllers
             return View();
         }
 
+        public IActionResult MemManagement()
+        {
+            return View();
+        }
+
         public IActionResult Dashboard()
         {
            
