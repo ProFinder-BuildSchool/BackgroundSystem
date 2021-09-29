@@ -80,7 +80,7 @@ namespace Background_ProFinder.Service
             int last4daycnt = (from q in allQuotations
                                where DateTime.Equals(q.UpdateDate.Date, last4day.Date)
                                select q.UpdateDate).Count();
-            int[] launchcnt = { todaycnt, last1daycnt, last2daycnt, last3daycnt, last4daycnt };
+            int[] launchcnt = { last4daycnt, last3daycnt, last2daycnt, last1daycnt, todaycnt};
             string[] launchday = { last4day.ToShortDateString(), last3day.ToShortDateString(), last2day.ToShortDateString(), last1day.ToShortDateString(), today.ToShortDateString()};
             dashboardDetails.LaunchCnt = launchcnt;
             dashboardDetails.LaunchDay = launchday;
