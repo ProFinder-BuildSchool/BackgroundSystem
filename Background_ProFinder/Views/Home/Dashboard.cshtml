@@ -201,10 +201,11 @@
             mounted() {
                 setTimeout(() => {
                     this.isLoading = false
-                }, 5000)
+                }, 6000)
             },
             created: function () {
-                axios({ method: "Get", url: "/api/Dashboard" }).then(res => {
+
+                axios({ method: "Get", url: "/api/Dashboard"}).then(res => {
                     this.MemberCount = JSON.parse(res.data.result).MemberCount;
                     this.QuotationCount = JSON.parse(res.data.result).QuotationCount;
                     this.OrderCount = JSON.parse(res.data.result).OrderCount;
