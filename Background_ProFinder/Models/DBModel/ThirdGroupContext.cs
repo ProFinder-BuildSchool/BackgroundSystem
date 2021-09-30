@@ -341,13 +341,13 @@ namespace Background_ProFinder.Models.DBModel
 
             modelBuilder.Entity<CaseReference>(entity =>
             {
-                entity.HasKey(e => e.CaseId);
+                entity.HasKey(e => e.CaseRefId);
 
                 entity.ToTable("CaseReference");
 
-                entity.Property(e => e.CaseId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("CaseID");
+                entity.Property(e => e.CaseRefId).HasColumnName("CaseRefID");
+
+                entity.Property(e => e.CaseId).HasColumnName("CaseID");
             });
 
             modelBuilder.Entity<Category>(entity =>

@@ -1,0 +1,153 @@
+﻿@{
+    ViewData["Title"] = "MemManagement";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid" id="app">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800 p-2">會員管理</h1>
+
+
+    <!-- MemList Table -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex flex-row justify-content-between">
+            <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" align="right"></b-pagination>
+            <div class="d-flex flex-row align-content-center">
+                <input type="text" placeholder="搜尋關鍵字" class="form-control mr-2" v-model="keyword" />
+                <b-form-select v-model="selected" :options="options"></b-form-select>
+            </div>
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <div>
+                    <b-table sort-icon-left striped hover responsive="md" :items="items" :fields="fields" :busy="isBusy" :per-page="perPage" :current-page="currentPage">
+                        @*items loading*@
+                        <template #table-busy>
+                            <div class="text-center text-primary my-2">
+                                <b-spinner class="align-middle"></b-spinner>
+                                <strong>Loading...</strong>
+                            </div>
+                        </template>
+                        <template #cell(Email)="data">
+                            <a :href="`mailto:${data.value}`" style="color:#8c6057;"  >{{data.value}}</a>
+                        </template>
+
+                        
+                    </b-table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section topCSS{
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+<style>
+    h6.table-title {
+        line-height: 38px;
+    }
+
+    ul.pagination {
+        margin-bottom: 0px;
+    }
+
+    td {
+        padding-left: 22px !important;
+    }
+
+    
+</style>
+}
+@section endJS{
+<script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+
+        var app = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    isBusy: true,
+                    fields: [
+                        { key: "MemberId", label: "編號", sortable: true },
+                        { key: "NickName", label: "名稱", sortable: true },
+                        { key: "LocationString", label: "地點", sortable: true },
+                        { key: "IdentityString", label: "接案身分", sortable: true },
+                        { key: "UserId", label: "使用者號", sortable: true },
+                        { key: "Cellphone", label: "電話", sortable: true },
+                        { key: "Email", label: "信箱", sortable: true },
+                        
+                    ],
+                    options: [
+                        { value: "-1", text: "--接案身分--" },
+                        { value: "0", text: "NoRecord" },
+                        { value: "1", text: "個人兼職" },
+                        { value: "2", text: "專職SOHO" },
+                        { value: "3", text: "工作室" },
+                        { value: "4", text: "兼職上班族" },
+                        { value: "5", text: "公司" },
+                        { value: "6", text: "學生" },
+
+                    ],
+                    items: [],
+                    allitems: [],
+                    rows: 0,
+                    perPage: 15,
+                    currentPage: 1,
+                    keyword: "",
+                    selected: "-1",
+                }
+            },
+            created: function () {
+                axios({ method: "Get", url: "/api/Member" }).then(res => {
+                    this.items.push(...JSON.parse(res.data.result));
+                    this.allitems = this.items;
+                    //console.log(this.items);
+                    //console.log(this.allitems);
+                });
+            },
+            watch: {
+                items: function () {
+                    this.rows = this.items.length
+                    if (this.items != null) {
+                        this.isBusy = false;
+                    } else {
+                        this.isBusy = true;
+                    }
+                },
+                keyword: function () {
+                    if (this.keyword == null) {
+                        this.items = this.allitems;
+                    } else {
+                        this.items = this.allitems.filter(x => JSON.stringify(x).includes(this.keyword));
+                    }
+                },
+                selected: function () {
+                    let value = Number(this.selected);
+                    if (value != -1) {
+                        this.items = this.allitems.filter(x => x.Identity == value);
+                    } else {
+                        this.items = this.allitems;
+                    }
+                }
+            },
+            
+            
+           
+                
+            
+
+        })
+</script>
+}
+

@@ -12,10 +12,15 @@ namespace Background_ProFinder.APIControllers
     {
 
         private readonly IOrderService _orderService;
+
         public OrderController(IOrderService orderService)
         {
             _orderService = orderService;
         }
+        /// <summary>
+        /// 取得所有訂單資訊
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public APIResult GetAllOrders()
         {
@@ -32,6 +37,11 @@ namespace Background_ProFinder.APIControllers
             }
         }
 
+        /// <summary>
+        /// 接收訂單ID，訂單status改爲【已撥款】，並撥款至接案者帳戶
+        /// </summary>
+        /// <param name="id">訂單ID</param>
+        /// <returns></returns>
         //[HttpPut("GiveMoney/{id}")]
         [HttpPut("{id}")]
         public APIResult GiveMoney(int id)

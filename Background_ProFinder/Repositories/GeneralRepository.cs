@@ -85,5 +85,10 @@ namespace Background_ProFinder.Repositories
 
         }
 
+        public virtual void SaveChanges()
+        {
+            _context.SaveChanges();
+        }
+
     }
 }

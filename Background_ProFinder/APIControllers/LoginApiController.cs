@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Background_ProFinder.Models.ViewModel;
 using Background_ProFinder.Service;
 using System.Web;
+using Background_ProFinder.Models.APIModel;
+using Background_ProFinder.Service.Interfaces;
 
 namespace Background_ProFinder.APIControllers
 {
@@ -16,8 +18,8 @@ namespace Background_ProFinder.APIControllers
 
     public class LoginApiController : ControllerBase
     {
-        private readonly LoginService _loginService;
-        public LoginApiController(LoginService LoginService)
+        private readonly ILoginService _loginService;
+        public LoginApiController(ILoginService LoginService)
         {
             _loginService = LoginService;
         }
@@ -28,7 +30,7 @@ namespace Background_ProFinder.APIControllers
         {
             try
             {
-               var result = _loginService.GetUserAccountData();
+                var result = _loginService.GetUserAccountData();
                 return new APIResult(APIStatus.Success, string.Empty, result);
             }
             catch (Exception ex)
@@ -52,30 +54,57 @@ namespace Background_ProFinder.APIControllers
                 return new APIResult(APIStatus.Fail, ex.Message, result);
             }
 
-            
-        }
 
-        public class APIResult
+        }
+        [HttpPut]
+        public APIResult UpdateUserInfo(int AdminId, UpdateUserInfo VMdata)
         {
-            public APIResult(int status, string errMsg, object result)
+            bool result;
+            try
             {
-                Status = status;
-                ErrMsg = errMsg;
-                Result = result;
+                result = _loginService.UpdateUserInfo(AdminId, VMdata);
+                return new APIResult(APIStatus.Success, string.Empty, result);
             }
-            public int Status { get; set; }
-            public string ErrMsg { get; set; }
-            public object Result { get; set; }
+            catch (Exception ex)
+            {
+                result = false;
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            }
+
 
         }
 
-        public static class APIStatus
+
+        [HttpPut]
+        public APIResult UpdateUserDeactivated(int adminId, int deactivatedNumber)
         {
-            public const int Success = 0;
-            public const int Fail = 1;
-            public const int DataBaseBreak = 101;
-
+            bool result;
+            try
+            {
+                result = _loginService.UpdateUserDeactivated(adminId, deactivatedNumber);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            }
         }
 
+       [HttpPut]
+        public APIResult UpdatePassword(int adminId, string psw)
+        {
+            bool result;
+            try
+            {
+                result = _loginService.UpdatePassword(adminId, psw);
+                return new APIResult(APIStatus.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            }
+        }
     }
 }

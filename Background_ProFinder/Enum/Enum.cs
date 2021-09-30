@@ -24,5 +24,10 @@ namespace Background_ProFinder.Enum
             待付款=0,製作中=1,待驗收=2,已提出撥款需求=3,撥款完成=4
         }
 
+        public enum Identity
+        {
+            NoRecord=0, 個人兼職=1, 專職SOHO=2, 工作室=3, 兼職上班族=4, 公司=5, 學生=6
+        }
+
     }
 }
