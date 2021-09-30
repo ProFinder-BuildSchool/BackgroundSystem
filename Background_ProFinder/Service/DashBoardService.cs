@@ -30,7 +30,6 @@ namespace Background_ProFinder.Service
             dashboardDetails.OrderCount = allOrders.Count();
             foreach (var o in allOrders)
             {
-
                 sum += (int)o.Price * (int)o.Count;
             }
             dashboardDetails.OrderRevenue = sum.ToString("N0");
@@ -59,11 +58,11 @@ namespace Background_ProFinder.Service
             var last2day = DateTime.Today.AddDays(-2);
             var last3day = DateTime.Today.AddDays(-3);
             var last4day = DateTime.Today.AddDays(-4);
-            var last5day = DateTime.Today.AddDays(-5);
-            var last6day = DateTime.Today.AddDays(-6);
-            var last7day = DateTime.Today.AddDays(-7);
-            var last8day = DateTime.Today.AddDays(-8);
-            var last9day = DateTime.Today.AddDays(-9);
+            //var last5day = DateTime.Today.AddDays(-5);
+            //var last6day = DateTime.Today.AddDays(-6);
+            //var last7day = DateTime.Today.AddDays(-7);
+            //var last8day = DateTime.Today.AddDays(-8);
+            //var last9day = DateTime.Today.AddDays(-9);
 
             int todaycnt = (from q in allQuotations
                             where DateTime.Equals(q.UpdateDate.Date, today.Date)

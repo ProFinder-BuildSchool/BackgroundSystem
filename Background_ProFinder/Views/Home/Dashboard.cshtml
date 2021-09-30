@@ -115,7 +115,7 @@
                     @*<div class="chart-area">*@
                     <div class="barchart pt-6 pb-8">
                         @*<canvas id="myAreaChart"></canvas>*@
-                        <bar-chart :height="200" :tick="{min: 0, max: 5}"></bar-chart>
+                        <bar-chart :height="200" :tick="{min: 0, max: 10}"></bar-chart>
                     </div>
                 </div>
             </div>
@@ -258,8 +258,8 @@
                             },
                             ticks: {
                                 min: 0,
-                                max: 5,
-                                stepSize: 1,
+                                max: 10,
+                                stepSize: 2,
                                 //min: this.tick.min,
                                 //max: this.tick.max,
                             }
