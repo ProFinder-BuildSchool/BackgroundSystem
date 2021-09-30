@@ -113,6 +113,7 @@ namespace Background_ProFinder.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult MemManagement()
         {
             ClaimsPrincipal principal = HttpContext.User;
@@ -129,6 +130,7 @@ namespace Background_ProFinder.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult Dashboard()
         {
             ClaimsPrincipal principal = HttpContext.User;
