@@ -7,13 +7,15 @@
 @{
 }
 <div class="container-fluid" id="app">
+    <loading-screen v-if="isLoading"></loading-screen>
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1></div>
+        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    </div>
 
     <!-- Content Row -->
-    <div class="row" >
-      
+    <div class="row">
+
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
@@ -98,22 +100,22 @@
 
     <!-- Content Row -->
 
-    <div class="row" >
-        
+    <div class="row">
+
         @*近五日產品上架件數折線圖 統計圖表*@
         <!-- Area Chart -->
         <div class="col-xl-8 col-lg-7">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">近五日商品上架件數折線圖</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">近五日上架服務件數折線圖</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
                     @*<div class="chart-area">*@
                     <div class="barchart pt-6 pb-8">
                         @*<canvas id="myAreaChart"></canvas>*@
-                        <bar-chart :height="200" :tick="{min: 0, max: 5}"></bar-chart>
+                        <bar-chart :height="200" :tick="{min: 0, max: 10}"></bar-chart>
                     </div>
                 </div>
             </div>
@@ -125,7 +127,7 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">前三大項商品比例圓餅圖</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">前三大項服務種類比例圓餅圖</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -136,11 +138,11 @@
 
                     @*<div class="chart pt-4 pb-2" id="piechart">*@
                     @*<div id="chart" class="pt-4 pb-2">
-                        <apexchart type="donut" :options="chartOptions" :series="series"></apexchart>
-                    </div>*@
+                            <apexchart type="donut" :options="chartOptions" :series="series"></apexchart>
+                        </div>*@
                     @*<div id="chart pt-4 pb-2">
-                        <apexchart type="pie" width="380" :options="chartOptions" :series="series"></apexchart>
-                    </div>*@
+                            <apexchart type="pie" width="380" :options="chartOptions" :series="series"></apexchart>
+                        </div>*@
                     @*</div>*@
 
                 </div>
@@ -148,6 +150,18 @@
         </div>
     </div>
 </div>
+
+@section topCSS{ 
+<style>
+    #loading {
+        color: gray; 
+        font-size: 32px;
+        padding-top: 10vh;
+        height :100vh;
+        text-align :center;
+    }
+</style>
+}
 
 @section endJS{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
@@ -166,6 +180,10 @@
 
 
     <script>
+        Vue.component('loading-screen', {
+            template: '<div id="loading">Loading...</div>'
+        })
+
         var app = new Vue({
             el: "#app",
             data() {
@@ -175,12 +193,19 @@
                     OrderCount: 0,
                     QuotationCount: 0,
                     OrderRevenue: 0,
+                    isLoading: true
                     //Piechartname: [],
                     //Piechartcnt: []
                 }
             },
+            mounted() {
+                setTimeout(() => {
+                    this.isLoading = false
+                }, 6000)
+            },
             created: function () {
-                axios({ method: "Get", url: "/api/Dashboard" }).then(res => {
+
+                axios({ method: "Get", url: "/api/Dashboard"}).then(res => {
                     this.MemberCount = JSON.parse(res.data.result).MemberCount;
                     this.QuotationCount = JSON.parse(res.data.result).QuotationCount;
                     this.OrderCount = JSON.parse(res.data.result).OrderCount;
@@ -189,8 +214,8 @@
                     //this.Piechartcnt.push(...JSON.parse(res.data.result).PieChartCnt);
                     console.log(JSON.parse(res.data.result));
                 });
-            },
-
+            }
+        
         })
 
     </script>
@@ -233,8 +258,8 @@
                             },
                             ticks: {
                                 min: 0,
-                                max: 5,
-                                stepSize: 1,
+                                max: 10,
+                                stepSize: 2,
                                 //min: this.tick.min,
                                 //max: this.tick.max,
                             }
