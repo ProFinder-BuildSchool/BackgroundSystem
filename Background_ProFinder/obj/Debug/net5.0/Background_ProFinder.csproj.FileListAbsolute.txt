@@ -667,3 +667,4 @@ C:\Users\chris\Desktop\BackgroundSystem\Background_ProFinder\obj\Debug\net5.0\re
 C:\Users\chris\Desktop\BackgroundSystem\Background_ProFinder\obj\Debug\net5.0\Background_ProFinder.pdb
 C:\Users\chris\Desktop\BackgroundSystem\Background_ProFinder\obj\Debug\net5.0\Background_ProFinder.genruntimeconfig.cache
 C:\Users\chris\Desktop\BackgroundSystem\Background_ProFinder\obj\Debug\net5.0\Razor\Views\Home\MemManagement.cshtml.g.cs
+C:\Users\User\Desktop\BackgroundSystem_Profinder\Background_ProFinder\obj\Debug\net5.0\Razor\Views\Home\MemManagement.cshtml.g.cs
