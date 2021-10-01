@@ -30,7 +30,6 @@ namespace Background_ProFinder.Service
             dashboardDetails.OrderCount = allOrders.Count();
             foreach (var o in allOrders)
             {
-
                 sum += (int)o.Price * (int)o.Count;
             }
             dashboardDetails.OrderRevenue = sum.ToString("N0");
@@ -59,11 +58,11 @@ namespace Background_ProFinder.Service
             var last2day = DateTime.Today.AddDays(-2);
             var last3day = DateTime.Today.AddDays(-3);
             var last4day = DateTime.Today.AddDays(-4);
-            var last5day = DateTime.Today.AddDays(-5);
-            var last6day = DateTime.Today.AddDays(-6);
-            var last7day = DateTime.Today.AddDays(-7);
-            var last8day = DateTime.Today.AddDays(-8);
-            var last9day = DateTime.Today.AddDays(-9);
+            //var last5day = DateTime.Today.AddDays(-5);
+            //var last6day = DateTime.Today.AddDays(-6);
+            //var last7day = DateTime.Today.AddDays(-7);
+            //var last8day = DateTime.Today.AddDays(-8);
+            //var last9day = DateTime.Today.AddDays(-9);
 
             int todaycnt = (from q in allQuotations
                             where DateTime.Equals(q.UpdateDate.Date, today.Date)
@@ -80,7 +79,7 @@ namespace Background_ProFinder.Service
             int last4daycnt = (from q in allQuotations
                                where DateTime.Equals(q.UpdateDate.Date, last4day.Date)
                                select q.UpdateDate).Count();
-            int[] launchcnt = { todaycnt, last1daycnt, last2daycnt, last3daycnt, last4daycnt };
+            int[] launchcnt = { last4daycnt, last3daycnt, last2daycnt, last1daycnt, todaycnt};
             string[] launchday = { last4day.ToShortDateString(), last3day.ToShortDateString(), last2day.ToShortDateString(), last1day.ToShortDateString(), today.ToShortDateString()};
             dashboardDetails.LaunchCnt = launchcnt;
             dashboardDetails.LaunchDay = launchday;
