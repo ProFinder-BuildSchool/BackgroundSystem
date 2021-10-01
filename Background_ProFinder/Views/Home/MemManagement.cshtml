@@ -109,7 +109,7 @@
                 }
             },
             created: function () {
-                axios({ method: "Get", url: "/api/Member" }).then(res => {
+                axios({ method: "get", url: "/api/Member" }).then(res => {
                     this.items.push(...JSON.parse(res.data.result));
                     this.allitems = this.items;
                     //console.log(this.items);

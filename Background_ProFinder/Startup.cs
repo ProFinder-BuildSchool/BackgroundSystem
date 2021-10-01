@@ -68,6 +68,7 @@ namespace Background_ProFinder
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<ILoginService, LoginService>();
             services.AddTransient<IHomePageService, HomePageService>();
+            services.AddTransient<IMemService, MemService>();
             
 
             services.AddTransient<LoginService>();
