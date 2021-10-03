@@ -7,5 +7,6 @@ namespace Background_ProFinder.Repositories.Interfaces
 {
     public interface IQuotationRepository : IGeneralRepository
     {
+      
     }
 }
