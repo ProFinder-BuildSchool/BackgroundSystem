@@ -2,6 +2,7 @@
 using Background_ProFinder.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 
 
@@ -9,7 +10,7 @@ namespace Background_ProFinder.APIControllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class OrderController : ControllerBase
     {
 
@@ -62,6 +63,22 @@ namespace Background_ProFinder.APIControllers
                 return new APIResult(APIStatus.Fail, ex.Message, result);
             }
 
+        }
+        [HttpGet("Dapper")]
+        public APIResult DapperGetAllOrder()
+        {
+            string result = "";
+            try
+            {
+
+                result = JsonConvert.SerializeObject(_orderService.DapperGetAllOrders());
+                return new APIResult(APIStatus.Fail, "", result);
+            }
+            catch (Exception ex)
+            {
+
+                return new APIResult(APIStatus.Fail, ex.Message, result);
+            }
         }
     }
 }

@@ -221,7 +221,7 @@
                 }
             },
             created: function () {
-                axios({ method: "Get", url: "/api/Order" }).then(res => {
+                axios({ method: "Get", url: "/api/Order/Dapper" }).then(res => {
                     this.items.push(...JSON.parse(res.data.result));
                     this.allitems = this.items;
                     //console.log(this.items);

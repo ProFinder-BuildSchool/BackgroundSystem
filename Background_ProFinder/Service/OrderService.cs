@@ -70,38 +70,42 @@ namespace Background_ProFinder.Service
                 orderDetails.Add(new OrderManagementViewModel
                 {
                     //訂單資訊
-                    OrderID = o.OrderId,
-                    Price = price,
-                    PriceString = priceString,
-                    Count = count,
-                    Total = total,
-                    TotalString = totalString,
-                    DealedDate = dealedDateString,
-                    PredictDays = predictDays,
-                    CompleteDate = completeDateString,
+                    OrderID = o.OrderId,//ok
+                    Price = price, //ok
+                    PriceString = priceString, //ok
+                    Count = count, //ok
+                    Total = total, //ok
+                    TotalString = totalString, //ok
+                    DealedDate = dealedDateString, //ok
+                    PredictDays = predictDays, //ok
+                    CompleteDate = completeDateString, //ok
                     IsClientComfirmed = isComplete,
-                    OrderStatus = status,
-                    OrderStatusString = statusString,
+                    OrderStatus = status,//ok
+                    OrderStatusString = statusString, //ok
 
                     //接案者資料
-                    ProposerID = (int)o.ProposerId,
-                    StudioName = o.StudioName,
-                    ProposerPhone = proposerPhone,
-                    ProposerEmail = proposer.Email,
-                    BankCode = bankCode,
-                    BankAccount = bankAccount,
-                    Balance = balance,
-                    BalanceString = balanceString,
+                    ProposerID = (int)o.ProposerId, //ok
+                    StudioName = o.StudioName,//ok
+                    ProposerPhone = proposerPhone, //ok
+                    ProposerEmail = proposer.Email,//ok
+                    BankCode = bankCode, //ok
+                    BankAccount = bankAccount, //ok
+                    Balance = balance, //ok
+                    BalanceString = balanceString, //ok
 
                     //案主資料
-                    ClientName = o.Name,
-                    ClientTel = o.Tel,
-                    ClientEmail = o.Email,
-                    ClientMemo = memo
+                    ClientName = o.Name,//ok
+                    ClientTel = o.Tel,//ok
+                    ClientEmail = o.Email,//ok
+                    ClientMemo = memo//ok
                 });
             }
             return JsonConvert.SerializeObject(orderDetails);
 
+        }
+        public IEnumerable<OrderManagementViewModel> DapperGetAllOrders()
+        {
+            return _orderRepo.DapperGetAllOrders().ToList();
         }
     }
 }

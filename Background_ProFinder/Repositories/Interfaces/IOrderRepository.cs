@@ -1,4 +1,4 @@
-﻿using Background_ProFinder.Models.DBModel;
+﻿using Background_ProFinder.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +9,6 @@ namespace Background_ProFinder.Repositories.Interfaces
     public interface IOrderRepository : IGeneralRepository
     {
         bool GiveMoneyToProposer(int orderId);
+        IEnumerable<OrderManagementViewModel> DapperGetAllOrders();
     }
 }

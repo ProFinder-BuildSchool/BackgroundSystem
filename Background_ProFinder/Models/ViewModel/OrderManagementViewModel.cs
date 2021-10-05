@@ -9,22 +9,22 @@ namespace Background_ProFinder.Models.ViewModel
     public class OrderManagementViewModel
     {
         //訂單資訊
-        public int OrderID { get; set; }
-        public int Price { get; set; }
-        public string PriceString { get; set; }
-        public int Count { get; set; }
-        public int Total { get; set; }
-        public string TotalString { get; set; }
-        public string DealedDate { get; set; }
-        public int PredictDays { get; set; }
-        public string CompleteDate { get; set; }
-        public bool IsClientComfirmed { get; set; }
-        public OrderStatus OrderStatus { get; set; }
-        public string OrderStatusString { get; set; }
+        public int OrderID { get; set; } //ok
+        public int Price { get; set; } //ok
+        public string PriceString { get; set; } //ok
+        public int Count { get; set; } //ok
+        public int Total { get; set; } //ok
+        public string TotalString { get; set; } //ok
+        public string DealedDate { get; set; } //ok
+        public int PredictDays { get; set; } //ok
+        public string CompleteDate { get; set; } //ok
+        public bool IsClientComfirmed { get; set; } //ok
+        public OrderStatus OrderStatus { get; set; } //ok
+        public string OrderStatusString { get; set; } //ok
 
         //接案者資料
-        public int ProposerID { get; set; }
-        public string StudioName { get; set; }
+        public int ProposerID { get; set; }//ok
+        public string StudioName { get; set; } //ok
         public string ProposerPhone { get; set; }
         public string ProposerEmail { get; set; }
         public string BankCode { get; set; }
@@ -33,10 +33,10 @@ namespace Background_ProFinder.Models.ViewModel
         public string BalanceString { get; set; }
 
         //案主資料
-        public string ClientName { get; set; }
-        public string ClientTel { get; set; }
-        public string ClientEmail { get; set; }
-        public string ClientMemo { get; set; }
+        public string ClientName { get; set; }//ok
+        public string ClientTel { get; set; }//ok
+        public string ClientEmail { get; set; }//ok
+        public string ClientMemo { get; set; }//ok
         
 
     }
