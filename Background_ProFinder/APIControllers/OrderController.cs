@@ -1,5 +1,6 @@
 ﻿using Background_ProFinder.Models.APIModel;
 using Background_ProFinder.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -8,6 +9,7 @@ namespace Background_ProFinder.APIControllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class OrderController : ControllerBase
     {
 
