@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
-
+using System.Diagnostics;
 
 namespace Background_ProFinder.APIControllers
 {
@@ -27,12 +27,18 @@ namespace Background_ProFinder.APIControllers
         [HttpGet]
         public APIResult GetAllOrders()
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Reset();
+            sw.Start();
             string result = "";
             try
             {
 
                 result = _orderService.GetAllOrders();
+                sw.Stop();
+                Console.WriteLine($"Api_Normal花費{sw.ElapsedMilliseconds.ToString()}豪秒");
                 return new APIResult(APIStatus.Success, string.Empty, result);
+                
             }
             catch (Exception ex)
             {
@@ -67,12 +73,18 @@ namespace Background_ProFinder.APIControllers
         [HttpGet("Dapper")]
         public APIResult DapperGetAllOrder()
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Reset();
+            sw.Start();
             string result = "";
             try
             {
 
                 result = JsonConvert.SerializeObject(_orderService.DapperGetAllOrders());
+                sw.Stop();
+                Console.WriteLine($"Api_Dapper花費{sw.ElapsedMilliseconds.ToString()}毫秒");
                 return new APIResult(APIStatus.Fail, "", result);
+                
             }
             catch (Exception ex)
             {

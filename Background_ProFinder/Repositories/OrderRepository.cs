@@ -10,14 +10,16 @@ using Background_ProFinder.Repositories.Interfaces;
 using Background_ProFinder.Models.ViewModel;
 using Dapper;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace Background_ProFinder.Repositories
 {
     public class OrderRepository : GeneralRepository, IOrderRepository
     {
-        public OrderRepository(ThirdGroupContext context, ILogger<Order> logger) : base(context, logger)
+        public IConfiguration _config;
+        public OrderRepository(ThirdGroupContext context, ILogger<Order> logger, IConfiguration config) : base(context, logger)
         {
-
+            _config = config;
         }
 
         public bool GiveMoneyToProposer(int orderId)
@@ -58,7 +60,7 @@ namespace Background_ProFinder.Repositories
         public  IEnumerable<OrderManagementViewModel> DapperGetAllOrders()
         {
             IEnumerable<OrderManagementViewModel> result = new List<OrderManagementViewModel>();
-            using(var conn = new SqlConnection(@"data source=bs-2021-hsz-summer.database.windows.net;initial catalog=ThirdGroup;user id=bs;password=3U7hzk5f8Bzm;"))
+            using(var conn = new SqlConnection(_config.GetValue<string>("ConnectionStrings:DefaultConnection")))
             {
                 
                 result = conn.Query<OrderManagementViewModel>("EXEC OrderInformation").ToList();

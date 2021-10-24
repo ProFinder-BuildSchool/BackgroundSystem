@@ -44,6 +44,7 @@ namespace Background_ProFinder
             services.AddDbContext<ThirdGroupContext>();
 
             services.AddDbContext<ThirdGroupContext>();
+            services.AddSwaggerDocument();
             services.AddScoped<LoginService>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -91,6 +92,9 @@ namespace Background_ProFinder
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseRouting();
 
